@@ -6,8 +6,9 @@
 <form method="POST" action="/task">
 @csrf
 	<input type="text" name="title" placeholder="task" required><br><br>
-	<textarea name="description" placeholder="description" required></textarea><br><br>
 	<input name="expected_finish_date" type="date" required><br><br>
+	<textarea name="description" placeholder="description" required></textarea><br><br>
+	
 	<a href="/"><button name="btn">Create</button></a>
 </form><br>
 @if(count($errors))
