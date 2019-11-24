@@ -19,6 +19,7 @@ class TasksController extends Controller
     }
 
     public function store(){
+        $date = date('Y-m-d');
     	$this->validate(request(), [
     			'title'=>'required',
     			'description'=>'required',
@@ -26,7 +27,9 @@ class TasksController extends Controller
     	]);
     	
 		Task::create(request(['title', 'description', 'expected_finish_date']));
-		return back();
+        if(request('expected_finish_date') < $date)
+            DB::table('tasks')->where('expected_finish_date', '<', $date)->delete();
+		return redirect('/');
     }
 
     public function show(Task $task){
@@ -35,8 +38,8 @@ class TasksController extends Controller
 
     public function date(){
         $date = date('Y-m-d');
-        if(request('expected_finish_date') < $date)
-            DB::table('tasks')->where('expected_finish_date', '<', $date)->delete();
+        /*if(request('expected_finish_date') < $date)
+            DB::table('tasks')->where('expected_finish_date', '<', $date)->delete();*/
             return response($date); 
         
     }
