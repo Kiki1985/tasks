@@ -26,10 +26,18 @@ class TasksController extends Controller
     	]);
     	
 		Task::create(request(['title', 'description', 'expected_finish_date']));
-		return redirect('/');
+		return back();
     }
 
     public function show(Task $task){
     	return view('tasks.show', compact('task'));
+    }
+
+    public function date(){
+        $date = date('Y-m-d');
+        if(request('expected_finish_date') < $date)
+            DB::table('tasks')->where('expected_finish_date', '<', $date)->delete();
+            return response($date); 
+        
     }
 }
