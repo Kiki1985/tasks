@@ -10,8 +10,9 @@ use DB;
 class TasksController extends Controller
 {
     public function index(){
+         $date = date('Y-m-d');
     	$tasks = DB::table('tasks')->orderBy('expected_finish_date', 'asc')->get();
-			return view('index', compact('tasks'));
+			return view('index', compact('tasks', 'date'));
     }
 
     public function create(){

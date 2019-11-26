@@ -58,6 +58,8 @@ function renderHTML(t){
 					document.getElementById('span_'+t[i].id).innerHTML = Difference_In_Days+ ' day';
 					if(Difference_In_Days == 0)
 					document.getElementById('span_'+t[i].id).innerHTML = ' Today';	
+				if(Difference_In_Days < 0)
+					 {{DB::table('tasks')->where('expected_finish_date', '<', $date)->delete()}};
 			}
 		}
 	}

@@ -38,8 +38,6 @@ function ajaxDate(){
 	var current_date = new Date(xhttp.responseText);
 	if(expected_finish_date < current_date)
 		alert('Invalid Date');
-	else alert('Task is successfully created.');
-
 }
 
 
