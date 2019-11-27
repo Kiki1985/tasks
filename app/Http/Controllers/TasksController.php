@@ -28,9 +28,10 @@ class TasksController extends Controller
     	]);
     	
 		Task::create(request(['title', 'description', 'expected_finish_date']));
-        if(request('expected_finish_date') < $date)
+        if(request('expected_finish_date') < $date){
             DB::table('tasks')->where('expected_finish_date', '<', $date)->delete();
-		return redirect('/');
+            return back();
+        }else return redirect('/');
     }
 
     public function show(Task $task){
