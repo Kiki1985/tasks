@@ -17,8 +17,8 @@
 		<td><span id="span_{{$task->id}}">{{--{{\Carbon\Carbon::parse($task->expected_finish_date)->toFormattedDateString()}}--}}</span></td>
 	</tr>
 @endforeach
-</table>
-<!--<div id="tabela"></div> -->
+</table><br>
+<a href="/expired"><button>Expired tasks</button></a>
 	
 @endif
 
@@ -55,14 +55,27 @@ function renderHTML(t){
 				var formatted_date = months[expected_finish_date.getMonth()] + ", " + expected_finish_date.getDate()+ " " + expected_finish_date.getFullYear();
 				//alert('id ' +t[i].id +' diference in days '+Difference_In_Days);
 				document.getElementById('span_'+t[i].id).innerHTML = formatted_date;
-				if(Difference_In_Days <= 10)
-				document.getElementById('span_'+t[i].id).innerHTML = Difference_In_Days+ ' days';
-				if(Difference_In_Days == 1)
+				if(Difference_In_Days <= 10){
+					document.getElementById('span_'+t[i].id).innerHTML = Difference_In_Days+ ' days';
+				}
+				
+				if(Difference_In_Days == 1){
 					document.getElementById('span_'+t[i].id).innerHTML = Difference_In_Days+ ' day';
-					if(Difference_In_Days == 0)
-					document.getElementById('span_'+t[i].id).innerHTML = ' Today';	
-				if(Difference_In_Days < 0)
+				}
+					
+				if(Difference_In_Days == 0){
+					document.getElementById('span_'+t[i].id).innerHTML = ' Today';
+				}
+						
+				if(Difference_In_Days < 0){
+					alert(Diference_In_Days);
+					{{--{{DB::table('expired_tasks')->insert(
+    					['task_id' => '1', 'title' => 'test', 'description' => 'test',  'expected_finish_date' => '2019-11-29',]
+					)}};--}}
 					 {{DB::table('tasks')->where('expected_finish_date', '<', $date)->delete()}};
+				}
+					
+				
 			}
 		}
 	}
