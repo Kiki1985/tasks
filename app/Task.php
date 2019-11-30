@@ -8,8 +8,4 @@ class Task extends Model
 {
 	protected $guarded = [];
 
-	public function expired()
-    {
-        return $this->hasOne('App\Expired');
-    }
 }

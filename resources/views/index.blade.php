@@ -68,11 +68,18 @@ function renderHTML(t){
 				}
 						
 				if(Difference_In_Days < 0){
-					alert(Diference_In_Days);
-					{{--{{DB::table('expired_tasks')->insert(
-    					['task_id' => '1', 'title' => 'test', 'description' => 'test',  'expected_finish_date' => '2019-11-29',]
-					)}};--}}
-					 {{DB::table('tasks')->where('expected_finish_date', '<', $date)->delete()}};
+					document.getElementById('span_'+t[i].id).innerHTML = ' Expired';
+					(function () {
+  					xhttp.open("GET", "expired", true);
+					xhttp.send(null);
+						xhttp.onreadystatechange = function(){
+							if(xhttp.readyState === 4){
+								
+				
+							}
+						}
+					}());
+
 				}
 					
 				
@@ -80,7 +87,6 @@ function renderHTML(t){
 		}
 	}
 }
-
 
 (function()
 {

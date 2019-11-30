@@ -15,7 +15,6 @@ class CreateExpiredTasksTable extends Migration
     {
         Schema::create('expired_tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('task_id');
             $table->text('title');
             $table->text('description');
             $table->date('expected_finish_date');
