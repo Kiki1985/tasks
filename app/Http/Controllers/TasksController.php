@@ -47,9 +47,9 @@ class TasksController extends Controller
 
     public function expired(){
         $date = date('Y-m-d');
-        DB::table('expired_tasks')->insert(
-            ['title' => 'test', 'description' => 'test',  'expected_finish_date' => '2019-11-29']
-                    );
+        DB::select("INSERT INTO expired_tasks(title, description, expected_finish_date, created_at, updated_at)
+SELECT title, description, expected_finish_date, created_at, updated_at
+FROM tasks;");
         DB::table('tasks')->where('expected_finish_date', '<', $date)->delete();
 
         
