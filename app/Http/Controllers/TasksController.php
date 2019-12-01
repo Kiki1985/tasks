@@ -49,7 +49,7 @@ class TasksController extends Controller
         $date = date('Y-m-d');
         DB::select("INSERT INTO expired_tasks(title, description, expected_finish_date, created_at, updated_at)
 SELECT title, description, expected_finish_date, created_at, updated_at
-FROM tasks;");
+FROM tasks WHERE expected_finish_date = subdate(current_date, 1);");
         DB::table('tasks')->where('expected_finish_date', '<', $date)->delete();
 
         
