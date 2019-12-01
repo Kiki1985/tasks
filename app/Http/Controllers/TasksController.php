@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\Expired;
 use DB;
 
 
@@ -54,6 +55,15 @@ FROM tasks WHERE expected_finish_date = subdate(current_date, 1);");
 
         
         return back();
+    }
+
+    public function expired_tasks(){
+
+        
+        
+        $expired_tasks = DB::table('expired_tasks')->get();
+        //return($expired_tasks);
+        return view('expired', compact('expired_tasks'));
     }
 
    

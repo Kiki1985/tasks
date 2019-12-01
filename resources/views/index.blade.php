@@ -18,10 +18,10 @@
 	</tr>
 @endforeach
 </table><br>
-<a href="/expired"><button>Expired tasks</button></a>
+
 	
 @endif
-
+<a href="/expired_tasks"><button>Expired tasks</button></a>
 <script type="text/javascript">
 
 var xhttp;

@@ -17,4 +17,6 @@ Route::get('date', 'TasksController@date');
 
 Route::get('/expired', 'TasksController@expired');
 
+Route::get('/expired_tasks', 'TasksController@expired_tasks');
+
 
