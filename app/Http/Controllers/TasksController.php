@@ -11,8 +11,8 @@ use DB;
 class TasksController extends Controller
 {
     public function index(){
-         $date = date('Y-m-d');
-    	$tasks = DB::table('tasks')->orderBy('expected_finish_date', 'asc')->get();
+        $date = date('Y-m-d');
+    	$tasks = DB::table('tasks')->where('expected_finish_date', '>=', $date)->orderBy('expected_finish_date', 'asc')->get();
 			return view('index', compact('tasks', 'date'));
     }
 
@@ -40,30 +40,15 @@ class TasksController extends Controller
 
     public function date(){
         $date = date('Y-m-d');
-        /*if(request('expected_finish_date') < $date)
-            DB::table('tasks')->where('expected_finish_date', '<', $date)->delete();*/
             return response($date); 
         
     }
 
-    public function expired(){
-        $date = date('Y-m-d');
-        DB::select("INSERT INTO expired_tasks(title, description, expected_finish_date, created_at, updated_at)
-SELECT title, description, expected_finish_date, created_at, updated_at
-FROM tasks WHERE expected_finish_date = subdate(current_date, 1);");
-        DB::table('tasks')->where('expected_finish_date', '<', $date)->delete();
-
-        
-        return back();
-    }
 
     public function expired_tasks(){
-
-        
-        
-        $expired_tasks = DB::table('expired_tasks')->get();
-        //return($expired_tasks);
-        return view('expired', compact('expired_tasks'));
+        $date = date('Y-m-d');
+        $expired_tasks = DB::table('tasks')->where('expected_finish_date', '<', $date)->orderBy('expected_finish_date', 'asc')->get();
+            return view('expired', compact('expired_tasks', 'date'));
     }
 
    
