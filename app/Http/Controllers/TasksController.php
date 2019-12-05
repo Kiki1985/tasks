@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
-use App\Expired;
 use DB;
 
 
@@ -50,7 +49,5 @@ class TasksController extends Controller
         $expired_tasks = DB::table('tasks')->where('expected_finish_date', '<', $date)->orderBy('expected_finish_date', 'asc')->get();
             return view('expired', compact('expired_tasks', 'date'));
     }
-
-   
     
 }

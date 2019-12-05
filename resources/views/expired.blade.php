@@ -1,16 +1,23 @@
 @extends('layout')
 @section('content')
-<h1>Expired tasks</h1>
+<h3>Expired tasks</h3>
 @if($expired_tasks->isEmpty())
 <p><i>No expired tasks</i></p>
 @else
+<table align="center">
+	<tr>
+		<th>Task</th>
+		<th>Expected finish date</th>
+	</tr>
 @foreach($expired_tasks as $task)
-	<h3>{{$task->title}}</h3>
-	<p>{{$task->description}}</p>
-	<p>Created at {{\Carbon\Carbon::parse($task->created_at)->toFormattedDateString()}}</p>
-	<p>Expired {{\Carbon\Carbon::parse($task->expected_finish_date)->toFormattedDateString()}}</p>
-	<hr>
+	<tr>
+		<td><a href="tasks/{{$task->id}}">{{$task->title}}</a></td>
+		<td><span id="span_{{$task->id}}">{{\Carbon\Carbon::parse($task->expected_finish_date)->toFormattedDateString()}}</span></td>
+	</tr>
 @endforeach
+</table><br>
+
+	
 @endif
 <a href="/"><button>Tasks</button></a>
 @endsection
