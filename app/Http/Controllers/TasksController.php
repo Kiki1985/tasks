@@ -40,14 +40,18 @@ class TasksController extends Controller
     public function date(){
         $date = date('Y-m-d');
             return response($date); 
-        
     }
-
 
     public function expired_tasks(){
         $date = date('Y-m-d');
         $expired_tasks = DB::table('tasks')->where('expected_finish_date', '<', $date)->orderBy('expected_finish_date', 'asc')->get();
             return view('expired', compact('expired_tasks', 'date'));
+    }
+
+    public function tasks(){
+        $date = date('Y-m-d');
+        $tasks = DB::table('tasks')->where('expected_finish_date', '>=', $date);
+        return response($tasks);
     }
     
 }
