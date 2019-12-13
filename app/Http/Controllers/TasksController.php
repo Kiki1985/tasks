@@ -1,22 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Task;
 use DB;
-
 
 class TasksController extends Controller
 {
     public function index(){
         $date = date('Y-m-d');
     	$tasks = DB::table('tasks')->where('expected_finish_date', '>=', $date)->orderBy('expected_finish_date', 'asc')->get();
-			return view('index', compact('tasks', 'date'));
-    }
-
-    public function create(){
-    	return view('create');
+        $expired_tasks = DB::table('tasks')->where('expected_finish_date', '<', $date)->orderBy('expected_finish_date', 'asc')->get();
+			return view('index', compact('tasks', 'date', 'expired_tasks'));
     }
 
     public function store(){
@@ -41,13 +35,4 @@ class TasksController extends Controller
         $date = date('Y-m-d');
             return response($date); 
     }
-
-    public function expired_tasks(){
-        $date = date('Y-m-d');
-        $expired_tasks = DB::table('tasks')->where('expected_finish_date', '<', $date)->orderBy('expected_finish_date', 'asc')->get();
-            return view('expired', compact('expired_tasks', 'date'));
-    }
-
-    
-    
 }
