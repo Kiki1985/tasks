@@ -2,8 +2,8 @@
 @section('content')
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#show').click(function() {
-		$('#show_div').slideToggle("slow");
+	$('#slideToggle').click(function() {
+		$('#slideToggle_div').slideToggle("slow");
 	});
 });
 </script>
