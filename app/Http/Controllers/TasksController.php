@@ -22,9 +22,16 @@ class TasksController extends Controller
     	]);
         if(request('expected_finish_date') < $date){
             return back();
-        }else
-        Task::create(request(['title', 'description', 'expected_finish_date']));
-         return redirect('/');
+        }else{
+        $task = new Task;
+        $task->title = request('title');
+        $task->description = request('description');
+        $task->expected_finish_date = request('expected_finish_date');
+        $task->save();
+        
+        return response($task);
+        }
+               
     }
 
     public function show(Task $task){
@@ -34,5 +41,12 @@ class TasksController extends Controller
     public function date(){
         $date = date('Y-m-d');
             return response($date); 
+    }
+
+    public function showTask(){
+        $date = date('Y-m-d');
+        $tasks = DB::table('tasks')->where('expected_finish_date', '>=', $date)->orderBy('expected_finish_date', 'asc')->get();
+        return($tasks);
+
     }
 }
