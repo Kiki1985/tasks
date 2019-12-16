@@ -56,6 +56,29 @@ $( document ).ready(function() {
 	        success: function(response){
 	        	var tr = $("<tr><td><a href='tasks/"+response.id+"'>"+response.title+"</a></td><td id='td_"+response.id+"'>"+response.expected_finish_date+"</td></tr>");
 				$("#table").append(tr);
+
+				$("#td_"+ response.id +"").text('hello');
+				const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			$.get("date", function(date){
+				current_date = new Date(date);
+				expected_finish_date = new Date (response.expected_finish_date);
+				var diff = new Date(expected_finish_date - current_date);
+				var days = diff/1000/60/60/24;
+				var formatted_date = months[expected_finish_date.getMonth()] + ", " + expected_finish_date.getDate()+ " " + expected_finish_date.getFullYear();
+
+				
+				$("#td_"+ response.id +"").text(formatted_date);
+				if(days == 0){
+					$("#td_"+ response.id +"").text('Today');
+				}
+				if(days == 1){
+					$("#td_"+ response.id +"").text(days+ ' day');
+				}
+				if(days <= 10){
+					$("#trd_"+ response.id +"").text(days+ ' days');
+				}
+			});
+
 				$('input[name ="title"]').val('');
 				$('textarea[name="description"]').val('');
 				$('input[name ="expected_finish_date"]').val('');
