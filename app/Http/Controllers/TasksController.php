@@ -28,7 +28,7 @@ class TasksController extends Controller
         $task->description = request('description');
         $task->expected_finish_date = request('expected_finish_date');
         $task->save();
-        
+
         
         return response($task);
         }
@@ -44,10 +44,15 @@ class TasksController extends Controller
             return response($date); 
     }
 
-    public function showTask(){
+    public function showTasks(){
         $date = date('Y-m-d');
         $tasks = DB::table('tasks')->where('expected_finish_date', '>=', $date)->orderBy('expected_finish_date', 'asc')->get();
         return($tasks);
+    }
 
+     public function showExpired(){
+        $date = date('Y-m-d');
+        $expired_tasks = DB::table('tasks')->where('expected_finish_date', '<', $date)->orderBy('expected_finish_date', 'asc')->get();
+        return($expired_tasks);
     }
 }

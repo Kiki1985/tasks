@@ -3,8 +3,7 @@
 
 
 <button id="slideToggle"><b>Create a new task </b></button>
-<div id="slideToggle_div" style="display: none">
-	<p>Create a new task</p>
+<div id="slideToggle_div" style="display: none"><br>
 <form>
 	<input type="text" name="title" placeholder="task" required="required" /><br><br>
 	<input type="date" name="expected_finish_date" required="required" /><br><br>
@@ -63,11 +62,6 @@ $( document ).ready(function() {
 
 			$('#p_'+value.id+'').click(function() {
 				$("#div_"+value.id+"").slideToggle("fast");
-				//$("#p_"+value.id+"").text('');
-				//$("#div_"+value.id+"").html("<h2 id='h2_"+value.id+"''>"+value.title+"</h2>");
-				//$('#h2_'+value.id+'').click(function() {
-					//$("#h2_"+value.id+"").html("<p>Value Title</p>");
-				//});
 			});
 		});
 	});
@@ -85,19 +79,21 @@ $('#slideToggle').click(function() {
 @if($expired_tasks->isEmpty())
 <p><i>No expired tasks</i></p>
 @else
-<table align="center">
-	<tr>
-		<th>Task</th>
-		<th>Expected finish date</th>
-	</tr>
-@foreach($expired_tasks as $task)
-	<tr>
-		<td><a href="tasks/{{$task->id}}">{{$task->title}}</a></td>
-		<td>{{\Carbon\Carbon::parse($task->expected_finish_date)->toFormattedDateString()}}</span></td>
-	</tr>
-@endforeach
-</table><br>
+<div id="div_expired"></div>
 </div>
 @endif
+
+<script type="text/javascript">
+jQuery.getJSON("expired", function(data) {
+		$.each(data, function(key, value){
+		$('#div_expired').append('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p><div id="div_'+value.id+'" style="display:none"><hr><p>'+value.description+'</p><p>Expected finish date: '+value.expected_finish_date+'</p><p>Created at: '+value.created_at+'</p><hr></div>');
+
+			$('#p_'+value.id+'').click(function() {
+				$("#div_"+value.id+"").slideToggle("fast");
+			});
+		});
+	});
+	
+</script>
 
 @endsection
