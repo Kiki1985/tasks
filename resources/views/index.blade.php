@@ -46,9 +46,9 @@ $( document ).ready(function() {
 	        data: {title: title,description: description,expected_finish_date: expected_finish_date},
 	        success: function(response){
 	        	$('#p_msg').text('');
-	        	$('#div_title').prepend('<p id="p_'+response.id+'">'+response.title+'</p><div id="hello_'+response.id+'" style="display:none">hello</div>');
+	        	$('#div_title').prepend('<p style="cursor:pointer" id="p_'+response.id+'">'+response.title+'</p><div id="div_'+response.id+'" style="display:none"><hr><p>'+response.description+'</p><p>Expected finish date: '+response.expected_finish_date+'</p><p>Created at: '+response.created_at+'</p><hr></div>');
 			$('#p_'+response.id+'').click(function() {
-				$("#hello_"+response.id+"").slideToggle("fast");
+				$("#div_"+response.id+"").slideToggle("fast");
 			});
 				$('input[name ="title"]').val('');
 				$('textarea[name="description"]').val('');
@@ -59,11 +59,16 @@ $( document ).ready(function() {
 	});
 	jQuery.getJSON("tasks", function(data) {
 		$.each(data, function(key, value){
-		$('#div_title').append('<p id="p_'+value.id+'">'+value.title+'</p><div id="hello_'+value.id+'" style="display:none"><h2>'+value.title+'</h2><hr><p>'+value.description+'</p><p>Expected finish date: '+value.expected_finish_date+'</p><p>Created at: '+value.created_at+'</p><hr></div>');
+		$('#div_title').append('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p><div id="div_'+value.id+'" style="display:none"><hr><p>'+value.description+'</p><p>Expected finish date: '+value.expected_finish_date+'</p><p>Created at: '+value.created_at+'</p><hr></div>');
+
 			$('#p_'+value.id+'').click(function() {
-				$("#hello_"+value.id+"").slideToggle("fast");
+				$("#div_"+value.id+"").slideToggle("fast");
+				//$("#p_"+value.id+"").text('');
+				//$("#div_"+value.id+"").html("<h2 id='h2_"+value.id+"''>"+value.title+"</h2>");
+				//$('#h2_'+value.id+'').click(function() {
+					//$("#h2_"+value.id+"").html("<p>Value Title</p>");
+				//});
 			});
-			
 		});
 	});
 });
