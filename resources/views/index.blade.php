@@ -45,9 +45,17 @@ $( document ).ready(function() {
 	        data: {title: title,description: description,expected_finish_date: expected_finish_date},
 	        success: function(response){
 	        	$('#p_msg').text('');
-	        	$('#div_title').prepend('<p style="cursor:pointer" id="p_'+response.id+'">'+response.title+'</p><div id="div_'+response.id+'" style="display:none"><hr><p>'+response.description+'</p><p>Expected finish date: '+response.expected_finish_date+'</p><p>Created at: '+response.created_at+'</p><hr></div>');
+	        	$('#div_title').prepend('<p style="cursor:pointer" id="p_'+response.id+'">'+response.title+'</p><div id=div1_'+response.id+'></div><div id="div_'+response.id+'" style="display:none"><hr><p>'+response.description+'</p><p>Expected finish date: '+response.expected_finish_date+'</p><p>Created at: '+response.created_at+'</p><hr></div>');
 			$('#p_'+response.id+'').click(function() {
-				$("#div_"+response.id+"").slideToggle("fast");
+				$(this).text('');
+				$('#div1_'+response.id+'').html('<h3 style="cursor:pointer" id="h3_'+response.id+'">'+response.title+'</h3>');
+				$("#div_"+response.id+"").slideDown("fast");
+
+				$('#h3_'+response.id+'').click(function() {
+					$(this).text('');
+					$('#p_'+response.id+'').html('<p style="cursor:pointer" id="p_'+response.id+'">'+response.title+'</p>');
+					$("#div_"+response.id+"").slideUp("fast");
+				});
 			});
 				$('input[name ="title"]').val('');
 				$('textarea[name="description"]').val('');
@@ -61,17 +69,19 @@ $( document ).ready(function() {
 		$('#div_title').append('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p><div id=div1_'+value.id+'></div><div id="div_'+value.id+'" style="display:none"><hr><p>'+value.description+'</p><p>Expected finish date: '+value.expected_finish_date+'</p><p>Created at: '+value.created_at+'</p><hr></div>');
 
 			$('#p_'+value.id+'').click(function() {
-				$('#p_'+value.id+'').text('');
+				$(this).text('');
 				$('#div1_'+value.id+'').html('<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>');
 				$("#div_"+value.id+"").slideDown("fast");
+
 				$('#h3_'+value.id+'').click(function() {
-					$('#h3_'+value.id+'').text('');
+					$(this).text('');
 					$('#p_'+value.id+'').html('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>');
 					$("#div_"+value.id+"").slideUp("fast");
 				});
 			});
 		});
 	});
+	//var msg ='Today';
 
 	$('#slideToggle').click(function() {
 		$('#slideToggle_div').slideToggle("slow");
@@ -79,15 +89,17 @@ $( document ).ready(function() {
 	jQuery.getJSON("expired", function(data) {
 		$.each(data, function(key, value){
 			$('#div_expired').append('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p><div id=div1_'+value.id+'></div><div id="div_'+value.id+'" style="display:none"><hr><p>'+value.description+'</p><p>Expected finish date: '+value.expected_finish_date+'</p><p>Created at: '+value.created_at+'</p><hr></div>');
-				$('#p_'+value.id+'').click(function() {
-				$('#p_'+value.id+'').text('');
+
+			$('#p_'+value.id+'').click(function() {
+				$(this).text('');
 				$('#div1_'+value.id+'').html('<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>');
 				$("#div_"+value.id+"").slideDown("fast");
-				$('#h3_'+value.id+'').click(function() {
-					$('#h3_'+value.id+'').text('');
-					$('#p_'+value.id+'').html('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>');
-					$("#div_"+value.id+"").slideUp("fast");
-				});
+
+					$('#h3_'+value.id+'').click(function() {
+						$(this).text('');
+						$('#p_'+value.id+'').html('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>');
+						$("#div_"+value.id+"").slideUp("fast");
+					});
 			});
 		});
 	});
