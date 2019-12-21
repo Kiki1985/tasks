@@ -1,7 +1,6 @@
 @extends('layout')
 @section('content')
 
-
 <button id="slideToggle"><b>Create a new task </b></button>
 <div id="slideToggle_div" style="display: none"><br>
 <form>
@@ -14,6 +13,7 @@
 @include('errors')
 @endif
 </div> <!-- end div id="slideToggle_div" -->
+<h2>Tasks</h2>
 @if($tasks->isEmpty())
 
 <p id="p_msg"><i>No tasks yet</i></p>
@@ -58,42 +58,50 @@ $( document ).ready(function() {
 	});
 	jQuery.getJSON("tasks", function(data) {
 		$.each(data, function(key, value){
-		$('#div_title').append('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p><div id="div_'+value.id+'" style="display:none"><hr><p>'+value.description+'</p><p>Expected finish date: '+value.expected_finish_date+'</p><p>Created at: '+value.created_at+'</p><hr></div>');
+		$('#div_title').append('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p><div id=div1_'+value.id+'></div><div id="div_'+value.id+'" style="display:none"><hr><p>'+value.description+'</p><p>Expected finish date: '+value.expected_finish_date+'</p><p>Created at: '+value.created_at+'</p><hr></div>');
 
 			$('#p_'+value.id+'').click(function() {
-				$("#div_"+value.id+"").slideToggle("fast");
+				$('#p_'+value.id+'').text('');
+				$('#div1_'+value.id+'').html('<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>');
+				$("#div_"+value.id+"").slideDown("fast");
+				$('#h3_'+value.id+'').click(function() {
+					$('#h3_'+value.id+'').text('');
+					$('#p_'+value.id+'').html('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>');
+					$("#div_"+value.id+"").slideUp("fast");
+				});
+			});
+		});
+	});
+
+	$('#slideToggle').click(function() {
+		$('#slideToggle_div').slideToggle("slow");
+	});
+	jQuery.getJSON("expired", function(data) {
+		$.each(data, function(key, value){
+			$('#div_expired').append('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p><div id=div1_'+value.id+'></div><div id="div_'+value.id+'" style="display:none"><hr><p>'+value.description+'</p><p>Expected finish date: '+value.expected_finish_date+'</p><p>Created at: '+value.created_at+'</p><hr></div>');
+				$('#p_'+value.id+'').click(function() {
+				$('#p_'+value.id+'').text('');
+				$('#div1_'+value.id+'').html('<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>');
+				$("#div_"+value.id+"").slideDown("fast");
+				$('#h3_'+value.id+'').click(function() {
+					$('#h3_'+value.id+'').text('');
+					$('#p_'+value.id+'').html('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>');
+					$("#div_"+value.id+"").slideUp("fast");
+				});
 			});
 		});
 	});
 });
-$('#slideToggle').click(function() {
-		$('#slideToggle_div').slideToggle("slow");
-	});
-
-
 
 </script>
 
 <div style="clear: both;">
-<h3>Expired tasks</h3>
+<h2>Expired tasks</h2>
 @if($expired_tasks->isEmpty())
 <p><i>No expired tasks</i></p>
 @else
 <div id="div_expired"></div>
 </div>
 @endif
-
-<script type="text/javascript">
-jQuery.getJSON("expired", function(data) {
-		$.each(data, function(key, value){
-		$('#div_expired').append('<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p><div id="div_'+value.id+'" style="display:none"><hr><p>'+value.description+'</p><p>Expected finish date: '+value.expected_finish_date+'</p><p>Created at: '+value.created_at+'</p><hr></div>');
-
-			$('#p_'+value.id+'').click(function() {
-				$("#div_"+value.id+"").slideToggle("fast");
-			});
-		});
-	});
-	
-</script>
 
 @endsection

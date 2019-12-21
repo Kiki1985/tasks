@@ -23,20 +23,14 @@ class TasksController extends Controller
         if(request('expected_finish_date') < $date){
             return back();
         }else{
-        $task = new Task;
-        $task->title = request('title');
-        $task->description = request('description');
-        $task->expected_finish_date = request('expected_finish_date');
-        $task->save();
-
-        
-        return response($task);
+            $task = new Task;
+            $task->title = request('title');
+            $task->description = request('description');
+            $task->expected_finish_date = request('expected_finish_date');
+            $task->save();
+                return response($task);
         }
                
-    }
-
-    public function show(Task $task){
-    	return view('tasks.show', compact('task'));
     }
 
     public function date(){
