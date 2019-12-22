@@ -21,7 +21,9 @@ $( document ).ready(function() {
 						  "<div id=div_"+value.id+" style='display:none'><hr>" + 
 						  "<p>"+value.description+"</p>" +
 						  "<p>Expected finish date: "+value.expected_finish_date+"</p>" +
-						  "<p>Created at: "+value.created_at+"</p><hr>" +
+						  "<p>Created at: "+value.created_at+"</p>" +
+						  "<button>Update task</button>"+
+						  "<button>Delete task</button><hr>"+
 						  "</div>";
 				var h3_title = '<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>';
 				var p_title = '<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>';
@@ -52,7 +54,9 @@ $( document ).ready(function() {
 						  "<div id=div_"+value.id+" style='display:none'><hr>" + 
 						  "<p>"+value.description+"</p>" +
 						  "<p>Expected finish date: "+value.expected_finish_date+"</p>" +
-						  "<p>Created at: "+value.created_at+"</p><hr>" +
+						  "<p>Created at: "+value.created_at+"</p>" +
+						  "<button>Update task</button>"+
+						  "<button>Delete task</button><hr>"+
 						  "</div>";
 
 			var h3_title = '<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>';
@@ -82,7 +86,9 @@ $( document ).ready(function() {
 						  "<div id=div_"+value.id+" style='display:none'><hr>" + 
 						  "<p>"+value.description+"</p>" +
 						  "<p>Expected finish date: "+value.expected_finish_date+"</p>" +
-						  "<p>Created at: "+value.created_at+"</p><hr>" +
+						  "<p>Created at: "+value.created_at+"</p>" +
+						  "<button>Update task</button>"+
+						  "<button>Delete task</button><hr>"+
 						  "</div>";
 		var h3_title = '<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>';
 		var p_title = '<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>';
