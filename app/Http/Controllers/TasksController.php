@@ -49,4 +49,11 @@ class TasksController extends Controller
         $expired_tasks = DB::table('tasks')->where('expected_finish_date', '<', $date)->orderBy('expected_finish_date', 'asc')->get();
         return($expired_tasks);
     }
+
+    public function delete(){
+        $id = request('id');
+        DB::table('tasks')->where('id', '=', $id)->delete();
+        
+        return($id);
+    }
 }

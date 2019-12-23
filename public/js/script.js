@@ -23,8 +23,27 @@ $( document ).ready(function() {
 						  "<p>Expected finish date: "+value.expected_finish_date+"</p>" +
 						  "<p>Created at: "+value.created_at+"</p>" +
 						  "<button>Update task</button>"+
-						  "<button>Delete task</button><hr>"+
+
+						  "<button id='delete_"+value.id+"'>Delete task</button><hr>"+
+
 						  "</div>";
+				$( document ).ready(function() {
+					$('#delete_'+value.id+'').click(function() {
+						$("#div_"+value.id+"").hide("fast");
+						$("#div1_"+value.id+"").hide("fast");
+						var id = value.id;
+							//alert(id);
+						$.ajax({
+	        				url: 'delete_task',
+	        				type: 'get',
+	        				data: {id: id},
+	        				/*success: function(deleted_task){
+	        					alert(deleted_task);
+	        				}*/
+	        			});
+					});
+				});
+
 				var h3_title = '<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>';
 				var p_title = '<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>';
 
@@ -56,8 +75,27 @@ $( document ).ready(function() {
 						  "<p>Expected finish date: "+value.expected_finish_date+"</p>" +
 						  "<p>Created at: "+value.created_at+"</p>" +
 						  "<button>Update task</button>"+
-						  "<button>Delete task</button><hr>"+
+
+						  "<button id='delete_"+value.id+"'>Delete task</button><hr>"+
+
 						  "</div>";
+
+			$( document ).ready(function() {
+					$('#delete_'+value.id+'').click(function() {
+						$("#div_"+value.id+"").hide("fast");
+						$("#div1_"+value.id+"").hide("fast");
+						var id = value.id;
+							//alert(id);
+						$.ajax({
+	        				url: 'delete_task',
+	        				type: 'get',
+	        				data: {id: id},
+	        				/*success: function(deleted_task){
+	        					alert(deleted_task);
+	        				}*/
+	        			});
+					});
+				});
 
 			var h3_title = '<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>';
 			var p_title = '<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>';
@@ -88,8 +126,27 @@ $( document ).ready(function() {
 						  "<p>Expected finish date: "+value.expected_finish_date+"</p>" +
 						  "<p>Created at: "+value.created_at+"</p>" +
 						  "<button>Update task</button>"+
-						  "<button>Delete task</button><hr>"+
+
+						  "<button id='delete_"+value.id+"'>Delete task</button><hr>"+
+
 						  "</div>";
+				$( document ).ready(function() {
+					$('#delete_'+value.id+'').click(function() {
+						$("#div_"+value.id+"").hide("fast");
+						$("#div1_"+value.id+"").hide("fast");
+						var id = value.id;
+							//alert(id);
+						$.ajax({
+	        				url: 'delete_task',
+	        				type: 'get',
+	        				data: {id: id},
+	        				/*success: function(deleted_task){
+	        					alert(deleted_task);
+	        				}*/
+	        			});
+					});
+				});
+
 		var h3_title = '<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>';
 		var p_title = '<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>';
 

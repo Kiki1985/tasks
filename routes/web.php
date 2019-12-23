@@ -9,4 +9,6 @@ Route::get('expired', 'TasksController@showExpired');
 
 Route::get('date', 'TasksController@date');
 
+Route::get('delete_task', 'TasksController@delete');
+
 
