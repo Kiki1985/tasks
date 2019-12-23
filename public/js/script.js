@@ -22,7 +22,7 @@ $( document ).ready(function() {
 						  "<p>"+value.description+"</p>" +
 						  "<p>Expected finish date: "+value.expected_finish_date+"</p>" +
 						  "<p>Created at: "+value.created_at+"</p>" +
-						  "<button>Update task</button>"+
+						  "<a href='/tasks/"+value.id+"'><button>Update task</button></a>"+
 
 						  "<button id='delete_"+value.id+"'>Delete task</button><hr>"+
 
@@ -74,7 +74,7 @@ $( document ).ready(function() {
 						  "<p>"+value.description+"</p>" +
 						  "<p>Expected finish date: "+value.expected_finish_date+"</p>" +
 						  "<p>Created at: "+value.created_at+"</p>" +
-						  "<button>Update task</button>"+
+						  "<a href='/tasks/"+value.id+"'><button>Update task</button></a>"+
 
 						  "<button id='delete_"+value.id+"'>Delete task</button><hr>"+
 
@@ -125,11 +125,13 @@ $( document ).ready(function() {
 						  "<p>"+value.description+"</p>" +
 						  "<p>Expected finish date: "+value.expected_finish_date+"</p>" +
 						  "<p>Created at: "+value.created_at+"</p>" +
-						  "<button>Update task</button>"+
+
+						  "<a href='/tasks/"+value.id+"'><button>Update task</button></a>"+
 
 						  "<button id='delete_"+value.id+"'>Delete task</button><hr>"+
 
 						  "</div>";
+
 				$( document ).ready(function() {
 					$('#delete_'+value.id+'').click(function() {
 						$("#div_"+value.id+"").hide("fast");

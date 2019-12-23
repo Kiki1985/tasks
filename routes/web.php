@@ -11,4 +11,8 @@ Route::get('date', 'TasksController@date');
 
 Route::get('delete_task', 'TasksController@delete');
 
+Route::get('/tasks/{task}', 'TasksController@edit');
+
+Route::patch('/tasks/{task}', 'TasksController@update');
+
 

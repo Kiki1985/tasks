@@ -56,4 +56,23 @@ class TasksController extends Controller
         
         return($id);
     }
+
+    public function edit($id){
+        $task = Task::find($id);
+        return view('tasks.show', compact('task', 'id'));
+    }
+
+    public function update(Request $request, $id){
+        $this->validate($request,[
+            'title' =>'required',
+            'expected_finish_date' =>'required',
+            'description' =>'required'
+            ]);
+        $task = Task::find($id);
+        $task->title = $request->get('title');
+        $task->expected_finish_date = $request->get('expected_finish_date');
+        $task->description = $request->get('description');
+        $task->save();
+        return redirect('/');
+    }
 }
