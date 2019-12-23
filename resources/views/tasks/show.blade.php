@@ -19,5 +19,6 @@
 	<textarea name="description" placeholder="description" required="required" />{{$task->description}}</textarea><br><br>
 	<input type="submit" value="Update">
 </form><br>
+<a href="/"><button>Back to Tasks</button></a>
 
 @endsection

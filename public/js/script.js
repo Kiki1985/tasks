@@ -32,7 +32,6 @@ $( document ).ready(function() {
 						$("#div_"+value.id+"").hide("fast");
 						$("#div1_"+value.id+"").hide("fast");
 						var id = value.id;
-							//alert(id);
 						$.ajax({
 	        				url: 'delete_task',
 	        				type: 'get',
@@ -85,7 +84,6 @@ $( document ).ready(function() {
 						$("#div_"+value.id+"").hide("fast");
 						$("#div1_"+value.id+"").hide("fast");
 						var id = value.id;
-							//alert(id);
 						$.ajax({
 	        				url: 'delete_task',
 	        				type: 'get',
@@ -137,7 +135,6 @@ $( document ).ready(function() {
 						$("#div_"+value.id+"").hide("fast");
 						$("#div1_"+value.id+"").hide("fast");
 						var id = value.id;
-							//alert(id);
 						$.ajax({
 	        				url: 'delete_task',
 	        				type: 'get',
