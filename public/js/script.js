@@ -67,7 +67,7 @@ $( document ).ready(function() {
 	});
 	jQuery.getJSON("tasks", function(data) {
 		$.each(data, function(key, value){
-			var tasks_show = "<p style='cursor:pointer' id='p_"+value.id+"'>"+value.title+"</p>" +
+			var tasks_show = "<p style='cursor:pointer' id='p_"+value.id+"'>"+value.title+" Date to finish: "+value.expected_finish_date+"</p>" +
 						  "<div id=div1_"+value.id+"></div>" +
 						  "<div id=div_"+value.id+" style='display:none'><hr>" + 
 						  "<p>"+value.description+"</p>" +
@@ -96,7 +96,7 @@ $( document ).ready(function() {
 				});
 
 			var h3_title = '<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>';
-			var p_title = '<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>';
+			var p_title = "<p style='cursor:pointer' id='p_"+value.id+"'>"+value.title+" Date to finish: "+value.expected_finish_date+"</p>";
 
 		$('#div_title').append(tasks_show);
 			$('#p_'+value.id+'').click(function() {
@@ -117,7 +117,7 @@ $( document ).ready(function() {
 
 		$.each(data, function(key, value){
 
-		var tasks_expired = "<p style='cursor:pointer' id='p_"+value.id+"'>"+value.title+"</p>" +
+		var tasks_expired = "<p style='cursor:pointer' id='p_"+value.id+"'>"+value.title+" Expired: "+value.expected_finish_date+"</p>" +
 						  "<div id=div1_"+value.id+"></div>" +
 						  "<div id=div_"+value.id+" style='display:none'><hr>" + 
 						  "<p>"+value.description+"</p>" +
@@ -147,7 +147,7 @@ $( document ).ready(function() {
 				});
 
 		var h3_title = '<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>';
-		var p_title = '<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>';
+		var p_title = "<p style='cursor:pointer' id='p_"+value.id+"'>"+value.title+" Expired: "+value.expected_finish_date+"</p>";
 
 		$('#div_expired').append(tasks_expired);
 
