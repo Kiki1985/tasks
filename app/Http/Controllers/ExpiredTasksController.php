@@ -10,8 +10,8 @@ class ExpiredTasksController extends Controller
 {
 	public function show()
     {
-	    $expired_tasks = Task::where('dateToFinish', '<=', date('Y-m-d'))
+	    $expiredTasks = Task::where('dateToFinish', '<', date('Y-m-d'))
 	                ->orderBy('dateToFinish', 'asc')->get();
-	    return($expired_tasks);
+	    return($expiredTasks);
     }
 }

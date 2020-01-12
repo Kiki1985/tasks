@@ -27,19 +27,10 @@ $( document ).ready(function() {
 						  "<button id='delete"+value.id+"'>Delete task</button><hr>"+
 
 						  "</div>";
-				$( document ).ready(function() {
-					$('#delete'+value.id+'').click(function() {
-						$("#div_"+value.id+"").hide("fast");
-						$("#div1_"+value.id+"").hide("fast");
-						$.ajax({
-	        				url: '/delete/'+value.id+'',
-	        				type: 'get',
-	        			});
-					});
-				});
+				
 
 				var h3_title = '<h3 style="cursor:pointer" id="h3_'+value.id+'">'+value.title+'</h3>';
-				var p_title = '<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'</p>';
+				var p_title = '<p style="cursor:pointer" id="p_'+value.id+'">'+value.title+'Date to finish: '+value.dateToFinish+'</p>';
 
 	        	$('#p_msg').text('');
 	        	$('#div_title').prepend(task_create);
@@ -56,6 +47,17 @@ $( document ).ready(function() {
 				$('input[name ="title"]').val('');
 				$('textarea[name="description"]').val('');
 				$('input[name ="dateToFinish"]').val('');
+
+				$( document ).ready(function() {
+					$('#delete'+value.id+'').click(function() {
+						$("#div_"+value.id+"").hide("fast");
+						$("#div1_"+value.id+"").hide("fast");
+						$.ajax({
+	        				url: '/delete/'+value.id+'',
+	        				type: 'get',
+	        			});
+					});
+				});
 			}
 		});
 		return false;
@@ -151,7 +153,7 @@ $( document ).ready(function() {
 	});
 
 	$('#slideToggle').click(function() {
-		$('#slideToggle_div').slideToggle("slow");
+		$('#slideToggle_div').slideToggle("fast");
 	});
 
 });

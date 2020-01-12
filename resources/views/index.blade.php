@@ -27,7 +27,7 @@
 
 <div style="clear: both;">
 <h2>Expired tasks</h2>
-@if($expired_tasks->isEmpty())
+@if($expiredTasks->isEmpty())
 <p><i>No expired tasks</i></p>
 @else
 <div id="div_expired"></div>
