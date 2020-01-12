@@ -13,7 +13,7 @@
 @if(count($errors))
 @include('errors')
 @endif
-</div> <!-- end div id="slideToggle_div" -->
+</div> <!-- end div id="slideToggleDiv" -->
 <h2>Tasks</h2>
 @if($tasks->isEmpty())
 
