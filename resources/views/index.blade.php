@@ -3,12 +3,12 @@
 @section('content')
 
 <button id="slideToggle"><b>Create a new task </b></button>
-<div id="slideToggle_div" style="display: none"><br>
+<div id="slideToggleDiv" style="display: none"><br>
 <form>
 	<input type="text" name="title" placeholder="task" required="required" /><br><br>
 	<input type="date" name="dateToFinish" required="required" /><br><br>
 	<textarea name="description" placeholder="description" required="required" /></textarea><br><br>
-	<button id="create_task">Create</button>
+	<button id="createTask">Create</button>
 </form><br>
 @if(count($errors))
 @include('errors')
@@ -17,12 +17,12 @@
 <h2>Tasks</h2>
 @if($tasks->isEmpty())
 
-<p id="p_msg"><i>No tasks yet</i></p>
+<p id="msg"><i>No tasks yet</i></p>
 
-<div id="div_title"></div>
+<div id="title"></div>
 
 @else
-<div id="div_title"></div>
+<div id="title"></div>
 @endif
 
 <div style="clear: both;">
@@ -30,7 +30,7 @@
 @if($expiredTasks->isEmpty())
 <p><i>No expired tasks</i></p>
 @else
-<div id="div_expired"></div>
+<div id="expired"></div>
 </div>
 @endif
 
