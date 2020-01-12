@@ -1,4 +1,6 @@
 @extends('layout')
+@section('title', 'Update task')
+
 @section('content')
 
 <h1>{{$task->title}}</h1>
@@ -10,12 +12,12 @@
 <p>Created {{\Carbon\Carbon::parse($task->created_at)->diffForHumans()}}</p><hr>
 <h2>Update task</h2>
 
-<form method="POST" action="{{action('TasksController@update', $id)}}">
+<form method="POST" action="/tasks/{{$task->id}}">
+@method('PATCH')
 @csrf
-<input type="hidden" name="_method" value="PATCH">
 
 	<input type="text" name="title" placeholder="task" value="{{$task->title}}" required="required" /><br><br>
-	<input type="date" name="expected_finish_date" value="{{$task->expected_finish_date}}" required="required" /><br><br>
+	<input type="date" name="dateToFinish" value="{{$task->expected_finish_date}}" required="required" /><br><br>
 	<textarea name="description" placeholder="description" required="required" />{{$task->description}}</textarea><br><br>
 	<input type="submit" value="Update">
 </form><br>

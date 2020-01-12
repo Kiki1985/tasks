@@ -1,11 +1,12 @@
 @extends('layout')
+@section('title', 'Tasks')
 @section('content')
 
 <button id="slideToggle"><b>Create a new task </b></button>
 <div id="slideToggle_div" style="display: none"><br>
 <form>
 	<input type="text" name="title" placeholder="task" required="required" /><br><br>
-	<input type="date" name="expected_finish_date" required="required" /><br><br>
+	<input type="date" name="dateToFinish" required="required" /><br><br>
 	<textarea name="description" placeholder="description" required="required" /></textarea><br><br>
 	<button id="create_task">Create</button>
 </form><br>

@@ -2,77 +2,67 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
-use DB;
 
 class TasksController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $date = date('Y-m-d');
-    	$tasks = DB::table('tasks')->where('expected_finish_date', '>=', $date)->orderBy('expected_finish_date', 'asc')->get();
-        $expired_tasks = DB::table('tasks')->where('expected_finish_date', '<', $date)->orderBy('expected_finish_date', 'asc')->get();
-			return view('index', compact('tasks', 'date', 'expired_tasks'));
+
+    	$tasks = Task::where('dateToFinish', '>=', $date)
+                ->orderBy('dateToFinish', 'asc')->get();
+
+        $expired_tasks = Task::where('dateToFinish', '<', $date)
+                        ->orderBy('dateToFinish', 'asc')->get();
+
+		return view('index', compact('tasks', 'date', 'expired_tasks'));
     }
 
-    public function store(){
-        $date = date('Y-m-d');
-    	$this->validate(request(), [
-    			'title'=>'required',
-    			'description'=>'required',
-    			'expected_finish_date'=>'required'
-    	]);
-        if(request('expected_finish_date') < $date){
-            return back();
+    public function store()
+    {
+        if(request('dateToFinish') < date('Y-m-d')){
+        return back();
         }else{
-            $task = new Task;
-            $task->title = request('title');
-            $task->description = request('description');
-            $task->expected_finish_date = request('expected_finish_date');
-            $task->save();
-                return response($task);
+        $task = Task::create(request()->validate([
+            'title'=>['required', 'min:3'],
+            'description'=>['required', 'min:3'],
+            'dateToFinish'=>'required'
+            ]));
+        return ($task);
         }
-               
     }
 
-    public function date(){
+    public function date()
+    {
         $date = date('Y-m-d');
-            return response($date); 
+        return response($date); 
     }
 
-    public function showTasks(){
-        $date = date('Y-m-d');
-        $tasks = DB::table('tasks')->where('expected_finish_date', '>=', $date)->orderBy('expected_finish_date', 'asc')->get();
+    public function show()
+    {
+        $tasks = Task::where('dateToFinish', '>=', date('Y-m-d'))
+                ->orderBy('dateToFinish', 'asc')->get();
         return($tasks);
     }
 
-     public function showExpired(){
-        $date = date('Y-m-d');
-        $expired_tasks = DB::table('tasks')->where('expected_finish_date', '<', $date)->orderBy('expected_finish_date', 'asc')->get();
-        return($expired_tasks);
+    public function destroy(Task $task)
+    {
+        $task->delete();
+        return back();
     }
 
-    public function delete(){
-        $id = request('id');
-        DB::table('tasks')->where('id', '=', $id)->delete();
-        
-        return($id);
+    public function edit(Task $task)
+    {
+        return view('tasks.edit', compact('task'));
     }
 
-    public function edit($id){
-        $task = Task::find($id);
-        return view('tasks.show', compact('task', 'id'));
-    }
-
-    public function update(Request $request, $id){
-        $this->validate($request,[
-            'title' =>'required',
-            'expected_finish_date' =>'required',
-            'description' =>'required'
-            ]);
-        $task = Task::find($id);
-        $task->title = $request->get('title');
-        $task->expected_finish_date = $request->get('expected_finish_date');
-        $task->description = $request->get('description');
-        $task->save();
+    public function update(Task $task)
+    {
+        $task->update(request()->validate([
+                'title'=>'required',
+                'description'=>'required',
+                'dateToFinish'=>'required'
+                ]));
         return redirect('/');
     }
 }

@@ -6,11 +6,11 @@
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
  <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
-	<title>Tasks</title>
+	<title>@yield('title')</title>
 </head>
 
 <body>
-	<div style="clear: both; text-align: center; margin:auto; width: 50%">
+	<div style="text-align: center; margin:auto; width: 50%">
 		@yield('content')
 	</div>
 </body>

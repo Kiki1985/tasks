@@ -17,7 +17,7 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('id');
             $table->text('title');
             $table->text('description');
-            $table->date('expected_finish_date');
+            $table->date('dateToFinish');
             $table->timestamps();
         });
     }
