@@ -32,12 +32,6 @@ class TasksController extends Controller
         }
     }
 
-    public function date()
-    {
-        $date = date('Y-m-d');
-        return response($date); 
-    }
-
     public function show()
     {
         $tasks = Task::where('dateToFinish', '>=', date('Y-m-d'))
