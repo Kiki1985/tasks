@@ -1,7 +1,6 @@
 @extends('layout')
 @section('title', 'Tasks')
 @section('content')
-
 <button id="slideToggle"><b>Create a new task </b></button>
 <div id="slideToggleDiv" style="display: none"><br>
 <form>
@@ -15,23 +14,19 @@
 @endif
 </div> <!-- end div id="slideToggleDiv" -->
 <h2>Tasks</h2>
-@if($tasks->isEmpty())
-
-<p id="msg"><i>No tasks yet</i></p>
-
+<p id="msg"></p>
 <div id="title"></div>
-
-@else
-<div id="title"></div>
-@endif
-
-<div style="clear: both;">
+<script type="text/javascript">
+	if( $('#title').is(':empty') ) {
+	    $('#msg').html('<i>No tasks yet</i>');
+	}
+</script>
 <h2>Expired tasks</h2>
-@if($expiredTasks->isEmpty())
-<p><i>No expired tasks</i></p>
-@else
+<p id="expMsg"></p>
 <div id="expired"></div>
-</div>
-@endif
-
+<script type="text/javascript">
+	if( $('#expired').is(':empty') ) {
+	    $('#expMsg').html('<i>No expired tasks</i>');
+	}
+</script>
 @endsection

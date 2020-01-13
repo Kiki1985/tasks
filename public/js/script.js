@@ -31,7 +31,7 @@ $( document ).ready(function() {
 	        type: 'get',
 	        data: {title: title,description: description,dateToFinish: dateToFinish},
 	        success: function(value){
-	        	var createTask = "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>" +
+	        	var createTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>" +
 						  "<div id=div1"+value.id+"></div>" +
 						  "<div id=div"+value.id+" style='display:none'><hr>" + 
 						  "<p>"+value.description+"</p>" +
@@ -39,7 +39,7 @@ $( document ).ready(function() {
 						  "<p>Created at: "+value.created_at+"</p>" +
 						  "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
 						  "<button id='delete"+value.id+"'>Delete task</button><hr>"+
-						  "</div>";
+						  "</div></div>";
 				
 				var h3Title = '<h3 style="cursor:pointer" id="h3'+value.id+'">'+value.title+'</h3>';
 				var pTitle = '<p style="cursor:pointer" id="p'+value.id+'">'+value.title+'Date to finish: '+value.dateToFinish+'</p>';
@@ -67,6 +67,10 @@ $( document ).ready(function() {
 					$('#delete'+value.id+'').click(function() {
 						$("#div"+value.id+"").hide("fast");
 						$("#div1"+value.id+"").hide("fast");
+						$("#task"+value.id+"").remove();
+						if( $('#title').is(':empty') ) {
+	    					$('#msg').html('<i>No tasks yet</i>');
+						}
 						$.ajax({
 	        				url: '/delete/'+value.id+'',
 	        				type: 'get',
@@ -82,7 +86,7 @@ $( document ).ready(function() {
 
 	jQuery.getJSON("tasks", function(data) {
 		$.each(data, function(key, value){
-			var showTask = "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>" +
+			var showTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>" +
 						   "<div id=div1"+value.id+"></div>" +
 						   "<div id=div"+value.id+" style='display:none'><hr>" + 
 						   "<p>"+value.description+"</p>" +
@@ -90,21 +94,27 @@ $( document ).ready(function() {
 						   "<p>Created at: "+value.created_at+"</p>" +
 						   "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
 						   "<button id='delete"+value.id+"'>Delete task</button><hr>"+
-						   "</div>";
+						   "</div></div>";
 
 			var h3Title = '<h3 style="cursor:pointer" id="h3'+value.id+'">'+value.title+'</h3>';
 			var pTitle = "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>";
 
+			$('#msg').text('');
+
 			$( document ).ready(function() {
-				$('#delete'+value.id+'').click(function() {
-					$("#div"+value.id+"").hide("fast");
-					$("#div1"+value.id+"").hide("fast");
-					$.ajax({
-		        		url: '/delete/'+value.id+'',
-		        		type: 'get',
-		        	});
+					$('#delete'+value.id+'').click(function() {
+						$("#div"+value.id+"").hide("fast");
+						$("#div1"+value.id+"").hide("fast");
+						$("#task"+value.id+"").remove();
+						if( $('#title').is(':empty') ) {
+	    					$('#msg').html('<i>No tasks yet</i>');
+						}
+						$.ajax({
+	        				url: '/delete/'+value.id+'',
+	        				type: 'get',
+	        			});
+					});
 				});
-			});
 
 			$('#title').append(showTask);
 
@@ -126,7 +136,7 @@ $( document ).ready(function() {
 	
 	jQuery.getJSON("expired", function(data) {
 		$.each(data, function(key, value){
-			var expiredTask = "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Expired: "+value.dateToFinish+"</p>"+
+			var expiredTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Expired: "+value.dateToFinish+"</p>"+
 						      "<div id=div1"+value.id+"></div>" +
 						      "<div id=div"+value.id+" style='display:none'><hr>" + 
 						  	  "<p>"+value.description+"</p>" +
@@ -134,22 +144,27 @@ $( document ).ready(function() {
 						  	  "<p>Created at: "+value.created_at+"</p>" +
 							  "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
 							  "<button id='delete"+value.id+"'>Delete task</button><hr>"+
-							  "</div>";
+							  "</div></div>";
 
 			$( document ).ready(function() {
-				$('#delete'+value.id+'').click(function() {
-					$("#div"+value.id+"").hide("fast");
-					$("#div1"+value.id+"").hide("fast");
-					$.ajax({
-		        		url: '/delete/'+value.id+'',
-		        		type: 'get',
-		        	});
+					$('#delete'+value.id+'').click(function() {
+						$("#div"+value.id+"").hide("fast");
+						$("#div1"+value.id+"").hide("fast");
+						$("#task"+value.id+"").remove();
+						if( $('#expired').is(':empty') ) {
+	    					$('#expMsg').html('<i>No expired tasks</i>');
+						}
+						$.ajax({
+	        				url: '/delete/'+value.id+'',
+	        				type: 'get',
+	        			});
+					});
 				});
-			});
 
 			var h3Title = '<h3 style="cursor:pointer" id="h3'+value.id+'">'+value.title+'</h3>';
 			var pTitle = "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Expired: "+value.dateToFinish+"</p>";
 
+			$('#expMsg').text('');
 			$('#expired').append(expiredTask);
 
 			$('#p'+value.id+'').click(function() {
