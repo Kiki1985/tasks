@@ -2,15 +2,30 @@ $( document ).ready(function() {
 	
 	$('#createTask').click(function() {
 		dateToFinish = new Date($('input[name ="dateToFinish"]').val());
-		$.get("date", function(date){
-			currentDate = new Date(date);
-			if(dateToFinish < currentDate){
-				alert("Invalid date");
-			}	
-		});
+		var finDate = dateToFinish.getFullYear() + "/" + (dateToFinish.getMonth()+1) + "/" + dateToFinish.getDate();
+		var date = new Date();
+		var strDate = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate();
+		
 		var title = $('input[name ="title"]').val();
-		var description = $('textarea[name="description"]').val();
 		var dateToFinish = $('input[name ="dateToFinish"]').val();
+		var description = $('textarea[name="description"]').val();
+		
+		if(title == null || title == "") {
+			alert("Please Fill Tittle Field");
+			return false;
+		}
+		if(dateToFinish == null || dateToFinish == "") {
+			alert("Please Fill Date Field");
+			return false;
+		}
+		if(description == null || description == "") {
+			alert("Please Fill Description Field");
+			return false;
+		}
+		if(finDate < strDate){
+			alert("Invalid date");
+			return false;
+		}else{
 		$.ajax({
 	        url: 'task',
 	        type: 'get',
@@ -60,8 +75,11 @@ $( document ).ready(function() {
 				});
 			}
 		});
-		return false;
+		
+	}
+	return false;
 	});
+
 	jQuery.getJSON("tasks", function(data) {
 		$.each(data, function(key, value){
 			var showTask = "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>" +
@@ -146,7 +164,7 @@ $( document ).ready(function() {
 				});
 			});
 		});
-		
+
 	});
 
 	$('#slideToggle').click(function() {

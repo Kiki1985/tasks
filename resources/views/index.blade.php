@@ -5,7 +5,7 @@
 <button id="slideToggle"><b>Create a new task </b></button>
 <div id="slideToggleDiv" style="display: none"><br>
 <form>
-	<input type="text" name="title" placeholder="task" required="required" /><br><br>
+	<input type="text" name="title" placeholder="title" required="required" /><br><br>
 	<input type="date" name="dateToFinish" required="required" /><br><br>
 	<textarea name="description" placeholder="description" required="required" /></textarea><br><br>
 	<button id="createTask">Create</button>
