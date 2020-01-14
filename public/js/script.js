@@ -1,4 +1,9 @@
 $( document ).ready(function() {
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
 	
 	$('#createTask').click(function() {
 		dateToFinish = new Date($('input[name ="dateToFinish"]').val());
@@ -27,8 +32,8 @@ $( document ).ready(function() {
 			return false;
 		}else{
 		$.ajax({
-	        url: 'task',
-	        type: 'get',
+	        url: 'tasks',
+	        type: 'post',
 	        data: {title: title,description: description,dateToFinish: dateToFinish},
 	        success: function(value){
 	        	var createTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>" +

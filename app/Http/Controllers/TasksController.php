@@ -18,7 +18,7 @@ class TasksController extends Controller
 		return view('index', compact('tasks', 'date', 'expiredTasks'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
         if(request('dateToFinish') < date('Y-m-d')){
         return back();

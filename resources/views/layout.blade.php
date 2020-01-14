@@ -6,6 +6,7 @@
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
  <script type="text/javascript" src="{{ URL::asset('js/script.js') }}"></script>
+ <meta name="csrf-token" content="{{ csrf_token() }}" /> 
 	<title>@yield('title')</title>
 </head>
 
