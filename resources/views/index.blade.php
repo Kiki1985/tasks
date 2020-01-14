@@ -9,9 +9,6 @@
 	<textarea name="description" placeholder="description" required="required" /></textarea><br><br>
 	<button id="createTask">Create</button>
 </form><br>
-@if(count($errors))
-@include('errors')
-@endif
 </div> <!-- end div id="slideToggleDiv" -->
 <h2>Tasks</h2>
 <p id="msg"></p>

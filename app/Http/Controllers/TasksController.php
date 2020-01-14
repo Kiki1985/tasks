@@ -7,15 +7,13 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $date = date('Y-m-d');
-
-    	$tasks = Task::where('dateToFinish', '>=', $date)
+        $tasks = Task::where('dateToFinish', '>=', date('Y-m-d'))
                 ->orderBy('dateToFinish', 'asc')->get();
 
-        $expiredTasks = Task::where('dateToFinish', '<', $date)
+        $expiredTasks = Task::where('dateToFinish', '<', date('Y-m-d'))
                         ->orderBy('dateToFinish', 'asc')->get();
 
-		return view('index', compact('tasks', 'date', 'expiredTasks'));
+		return view('index', compact('tasks', 'expiredTasks'));
     }
 
     public function store(Request $request)
