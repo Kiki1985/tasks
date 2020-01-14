@@ -54,7 +54,7 @@ $( document ).ready(function() {
 
 	
 	function showTask(value){
-		createTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>" +
+		showTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>" +
 						  "<div id=div1"+value.id+"></div>" +
 						  "<div id=div"+value.id+" style='display:none'><hr>" + 
 						  "<p>"+value.description+"</p>" +
@@ -69,7 +69,7 @@ $( document ).ready(function() {
 
 	    $('#msg').text('');
 
-	    $('#title').prepend(createTask);
+	    $('#title').prepend(showTask);
 
 		$('#p'+value.id+'').click(function() {
 		$(this).text('');
@@ -98,7 +98,7 @@ $( document ).ready(function() {
 
 	jQuery.getJSON("expired", function(data) {
 		$.each(data, function(key, value){
-			createTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Expired: "+value.dateToFinish+"</p>"+
+			showTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Expired: "+value.dateToFinish+"</p>"+
 						      "<div id=div1"+value.id+"></div>" +
 						      "<div id=div"+value.id+" style='display:none'><hr>" + 
 						  	  "<p>"+value.description+"</p>" +
@@ -125,7 +125,7 @@ $( document ).ready(function() {
 			var pTitle = "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Expired: "+value.dateToFinish+"</p>";
 
 			$('#expMsg').text('');
-			$('#expired').append(createTask);
+			$('#expired').append(showTask);
 
 			$('#p'+value.id+'').click(function() {
 				$(this).text('');
