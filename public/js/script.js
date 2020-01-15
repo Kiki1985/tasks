@@ -53,7 +53,7 @@ $( document ).ready(function() {
 	});
 
 	function showTask(value){
-		Task = "<div id=task"+value.id+">"+
+		task = "<div id=task"+value.id+">"+
 					 "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+"Date to finish: "+value.dateToFinish+"</p>" +
 					 "<div id=div"+value.id+" style='display:none'><hr>" + 
 					 "<p>"+value.description+"</p>" +
@@ -69,10 +69,10 @@ $( document ).ready(function() {
 		dateToFinish = dateToFinish.getFullYear() + "/" + (dateToFinish.getMonth()+1) + "/" + dateToFinish.getDate();
 	    if(dateToFinish < strDate){
 			$('#expMsg').text('');
-			$('#expired').append(Task);
+			$('#expired').append(task);
 		}else{
 			$('#msg').text('');
-			$('#title').prepend(Task);
+			$('#title').prepend(task);
 		}
 
 		$('#p'+value.id+'').click(function() {
