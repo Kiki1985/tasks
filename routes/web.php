@@ -13,6 +13,4 @@ Route::patch('/tasks/{task}', 'TasksController@update');
 
 //Route::resource('tasks', 'TasksController');
 
-Route::get('/expired', 'ExpiredTasksController@show');
-
 

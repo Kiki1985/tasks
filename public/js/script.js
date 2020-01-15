@@ -7,9 +7,9 @@ $( document ).ready(function() {
 	
 	$('#createTask').click(function() {
 		dateToFinish = new Date($('input[name ="dateToFinish"]').val());
-		var finDate = dateToFinish.getFullYear() + "/" + (dateToFinish.getMonth()+1) + "/" + dateToFinish.getDate();
-		var date = new Date();
-		var strDate = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate();
+		finDate = dateToFinish.getFullYear() + "/" + (dateToFinish.getMonth()+1) + "/" + dateToFinish.getDate();
+		date = new Date();
+		strDate = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate();
 		
 		var title = $('input[name ="title"]').val();
 		var dateToFinish = $('input[name ="dateToFinish"]').val();
@@ -52,34 +52,31 @@ $( document ).ready(function() {
 		});
 	});
 
-	
 	function showTask(value){
-		showTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Date to finish: "+value.dateToFinish+"</p>" +
-						  "<div id=div1"+value.id+"></div>" +
-						  "<div id=div"+value.id+" style='display:none'><hr>" + 
-						  "<p>"+value.description+"</p>" +
-						  "<p>Date to finish: "+value.dateToFinish+"</p>" +
-						  "<p>Created at: "+value.created_at+"</p>" +
-						  "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
-						  "<button id='delete"+value.id+"'>Delete task</button><hr>"+
-						  "</div></div>";
-				
-		h3Title = '<h3 style="cursor:pointer" id="h3'+value.id+'">'+value.title+'</h3>';
-		pTitle = '<p style="cursor:pointer" id="p'+value.id+'">'+value.title+'Date to finish: '+value.dateToFinish+'</p>';
-
-	    $('#msg').text('');
-
-	    $('#title').prepend(showTask);
+		createTask = "<div id=task"+value.id+">"+
+					 "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+"Date to finish: "+value.dateToFinish+"</p>" +
+					 "<div id=div"+value.id+" style='display:none'><hr>" + 
+					 "<p>"+value.description+"</p>" +
+					 "<p>Date to finish: "+value.dateToFinish+"</p>" +
+					 "<p>Created at: "+value.created_at+"</p>" +
+					 "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
+					 "<button id='delete"+value.id+"'>Delete task</button><hr>"+
+					 "</div></div>";
+			
+		date = new Date();
+		strDate = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate();
+		dateToFinish = new Date(value.dateToFinish);
+		dateToFinish = dateToFinish.getFullYear() + "/" + (dateToFinish.getMonth()+1) + "/" + dateToFinish.getDate();
+	    if(dateToFinish < strDate){
+			$('#expMsg').text('');
+			$('#expired').append(createTask);
+		}else{
+			$('#msg').text('');
+			$('#title').prepend(createTask);
+		}
 
 		$('#p'+value.id+'').click(function() {
-		$(this).text('');
-		$('#div1'+value.id+'').html(h3Title);
-		$("#div"+value.id+"").slideDown("fast");
-		$('#h3'+value.id+'').click(function() {
-			$(this).text('');
-			$('#p'+value.id+'').html(pTitle);
-			$("#div"+value.id+"").slideUp("fast");
-			});
+		$('#div'+value.id+'').slideToggle("fast");
 		});
 
 		$( document ).ready(function() {
@@ -88,6 +85,9 @@ $( document ).ready(function() {
 			if( $('#title').is(':empty') ) {
 	    		$('#msg').html('<i>No tasks yet</i>');
 			}
+			if( $('#expired').is(':empty') ) {
+	    		$('#expMsg').html('<i>No expired tasks</i>');
+			}
 			$.ajax({
 	        url: '/delete/'+value.id+'',
 	        type: 'get',
@@ -95,55 +95,8 @@ $( document ).ready(function() {
 			});
 		});
 	}
-
-	jQuery.getJSON("expired", function(data) {
-		$.each(data, function(key, value){
-			showTask = "<div id='task"+value.id+"'><p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Expired: "+value.dateToFinish+"</p>"+
-						      "<div id=div1"+value.id+"></div>" +
-						      "<div id=div"+value.id+" style='display:none'><hr>" + 
-						  	  "<p>"+value.description+"</p>" +
-						  	  "<p>Expired: "+value.dateToFinish+"</p>" +
-						  	  "<p>Created at: "+value.created_at+"</p>" +
-							  "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
-							  "<button id='delete"+value.id+"'>Delete task</button><hr>"+
-							  "</div></div>";
-
-			$( document ).ready(function() {
-					$('#delete'+value.id+'').click(function() {
-						$("#task"+value.id+"").remove();
-						if( $('#expired').is(':empty') ) {
-	    					$('#expMsg').html('<i>No expired tasks</i>');
-						}
-						$.ajax({
-	        				url: '/delete/'+value.id+'',
-	        				type: 'get',
-	        			});
-					});
-				});
-
-			var h3Title = '<h3 style="cursor:pointer" id="h3'+value.id+'">'+value.title+'</h3>';
-			var pTitle = "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+" Expired: "+value.dateToFinish+"</p>";
-
-			$('#expMsg').text('');
-			$('#expired').append(showTask);
-
-			$('#p'+value.id+'').click(function() {
-				$(this).text('');
-				$('#div1'+value.id+'').html(h3Title);
-				$("#div"+value.id+"").slideDown("fast");
-
-				$('#h3'+value.id+'').click(function() {
-					$(this).text('');
-					$('#p'+value.id+'').html(pTitle);
-					$("#div"+value.id+"").slideUp("fast");
-				});
-			});
-		});
-
-	});
-
-	$('#slideToggle').click(function() {
+		
+		$('#slideToggle').click(function() {
 		$('#slideToggleDiv').slideToggle("fast");
 	});
-
 });

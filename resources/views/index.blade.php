@@ -13,17 +13,15 @@
 <h2>Tasks</h2>
 <p id="msg"></p>
 <div id="title"></div>
-<script type="text/javascript">
-	if( $('#title').is(':empty') ) {
-	    $('#msg').html('<i>No tasks yet</i>');
-	}
-</script>
 <h2>Expired tasks</h2>
 <p id="expMsg"></p>
 <div id="expired"></div>
 <script type="text/javascript">
-	if( $('#expired').is(':empty') ) {
-	    $('#expMsg').html('<i>No expired tasks</i>');
-	}
+if( $('#title').is(':empty') ) {
+	$('#msg').html('<i>No tasks yet</i>');
+}
+if( $('#expired').is(':empty') ) {
+	$('#expMsg').html('<i>No expired tasks</i>');
+}
 </script>
 @endsection
