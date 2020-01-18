@@ -1,4 +1,6 @@
 $( document ).ready(function() {
+	date = new Date();
+	strDate = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate();
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -8,15 +10,16 @@ $( document ).ready(function() {
 	$('#createTask').click(function() {
 		dateToFinish = new Date($('input[name ="dateToFinish"]').val());
 		finDate = dateToFinish.getFullYear() + "/" + (dateToFinish.getMonth()+1) + "/" + dateToFinish.getDate();
-		date = new Date();
-		strDate = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate();
-		
 		var title = $('input[name ="title"]').val();
 		var dateToFinish = $('input[name ="dateToFinish"]').val();
 		var description = $('textarea[name="description"]').val();
 		
 		if(!title || !dateToFinish || !description) {
 			alert("Please Fill All Required Fields");
+			return false;
+		}
+		if(finDate < strDate){
+			alert("Invalid date");
 			return false;
 		}else{
 			$.ajax({
@@ -50,9 +53,7 @@ $( document ).ready(function() {
 					 "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
 					 "<button id='delete"+value.id+"'>Delete task</button><hr>"+
 					 "</div></div>";
-			
-		date = new Date();
-		strDate = date.getFullYear() + "/" + (date.getMonth()+1) + "/" + date.getDate();
+		
 		dateToFinish = new Date(value.dateToFinish);
 		dateToFinish = dateToFinish.getFullYear() + "/" + (dateToFinish.getMonth()+1) + "/" + dateToFinish.getDate();
 	    if(dateToFinish < strDate){
