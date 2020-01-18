@@ -18,19 +18,7 @@ $( document ).ready(function() {
 		if(!title || !dateToFinish || !description) {
 			alert("Please Fill All Required Fields");
 			return false;
-		}/*
-		if(!dateToFinish) {
-			alert("Please Fill Date Field");
-			return false;
-		}
-		if(!description) {
-			alert("Please Fill Description Field");
-			return false;
-		}
-		if(finDate < strDate){
-			alert("Invalid date");
-			return false;
-		}*/else{
+		}else{
 			$.ajax({
 		        url: 'tasks',
 		        type: 'post',
