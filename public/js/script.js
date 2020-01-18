@@ -1,6 +1,6 @@
 $( document ).ready(function() {
 	date = new Date();
-	strDate = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+	strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
 	$.ajaxSetup({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -9,11 +9,9 @@ $( document ).ready(function() {
 	
 	$('#createTask').click(function() {
 		title = $('input[name ="title"]').val();
-		dateToFinish = $('input[name ="dateToFinish"]').val();
-		inputDate = new Date(dateToFinish);
-		inputDate = inputDate.getFullYear() + "-" + (inputDate.getMonth()+1) + "-" + inputDate.getDate();
+		inputDate = $('input[name ="dateToFinish"]').val();
 		description = $('textarea[name="description"]').val();
-		if(!title || !dateToFinish || !description) {
+		if(!title || !inputDate || !description) {
 			alert("Please Fill All Required Fields");
 			return false;
 		}
@@ -24,7 +22,7 @@ $( document ).ready(function() {
 			$.ajax({
 		        url: 'tasks',
 		        type: 'post',
-		        data: {title: title,description: description,dateToFinish: dateToFinish},
+		        data: {title: title,description: description,dateToFinish: inputDate},
 		        success: function(value){
 		        	showTask(value);
 				}
@@ -54,7 +52,7 @@ $( document ).ready(function() {
 					 "</div></div>";
 		
 		dateToFinish = new Date(value.dateToFinish);
-		dateToFinish = dateToFinish.getFullYear() + "-" + (dateToFinish.getMonth()+1) + "-" + dateToFinish.getDate();
+		dateToFinish = dateToFinish.getFullYear() + "-" + ("0" + (dateToFinish.getMonth() + 1)).slice(-2) + "-" + ("0" + dateToFinish.getDate()).slice(-2);
 	    if(dateToFinish < strDate){
 			$('#expMsg').text('');
 			$('#expired').append(task);
