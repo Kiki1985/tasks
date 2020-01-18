@@ -15,22 +15,22 @@ $( document ).ready(function() {
 		var dateToFinish = $('input[name ="dateToFinish"]').val();
 		var description = $('textarea[name="description"]').val();
 		
-		if(title == null || title == "") {
-			alert("Please Fill Tittle Field");
+		if(!title || !dateToFinish || !description) {
+			alert("Please Fill All Required Fields");
 			return false;
-		}
-		if(dateToFinish == null || dateToFinish == "") {
+		}/*
+		if(!dateToFinish) {
 			alert("Please Fill Date Field");
 			return false;
 		}
-		if(description == null || description == "") {
+		if(!description) {
 			alert("Please Fill Description Field");
 			return false;
 		}
 		if(finDate < strDate){
 			alert("Invalid date");
 			return false;
-		}else{
+		}*/else{
 			$.ajax({
 		        url: 'tasks',
 		        type: 'post',
@@ -53,7 +53,7 @@ $( document ).ready(function() {
 	});
 
 	function showTask(value){
-		task = "<div id=task"+value.id+">"+
+		Task = "<div id=task"+value.id+">"+
 					 "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+"Date to finish: "+value.dateToFinish+"</p>" +
 					 "<div id=div"+value.id+" style='display:none'><hr>" + 
 					 "<p>"+value.description+"</p>" +
@@ -69,10 +69,10 @@ $( document ).ready(function() {
 		dateToFinish = dateToFinish.getFullYear() + "/" + (dateToFinish.getMonth()+1) + "/" + dateToFinish.getDate();
 	    if(dateToFinish < strDate){
 			$('#expMsg').text('');
-			$('#expired').append(task);
+			$('#expired').append(Task);
 		}else{
 			$('#msg').text('');
-			$('#title').prepend(task);
+			$('#title').prepend(Task);
 		}
 
 		$('#p'+value.id+'').click(function() {
