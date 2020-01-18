@@ -8,17 +8,16 @@ $( document ).ready(function() {
 	});
 	
 	$('#createTask').click(function() {
-		dateToFinish = new Date($('input[name ="dateToFinish"]').val());
-		finDate = dateToFinish.getFullYear() + "/" + (dateToFinish.getMonth()+1) + "/" + dateToFinish.getDate();
-		var title = $('input[name ="title"]').val();
-		var dateToFinish = $('input[name ="dateToFinish"]').val();
-		var description = $('textarea[name="description"]').val();
-		
+		title = $('input[name ="title"]').val();
+		dateToFinish = $('input[name ="dateToFinish"]').val();
+		inputDate = new Date(dateToFinish);
+		inputDate = inputDate.getFullYear() + "-" + (inputDate.getMonth()+1) + "-" + inputDate.getDate();
+		description = $('textarea[name="description"]').val();
 		if(!title || !dateToFinish || !description) {
 			alert("Please Fill All Required Fields");
 			return false;
 		}
-		if(finDate < strDate){
+		if(inputDate < strDate){
 			alert("Invalid date");
 			return false;
 		}else{
