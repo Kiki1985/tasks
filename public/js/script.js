@@ -41,12 +41,11 @@ strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "
 	});
 
 	function showTask(value){
-		task = "<div id=task"+value.id+">"+
-				"<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+"Date to finish: "+value.dateToFinish+"</p>" +
-				"<div id=div"+value.id+" style='display:none'><hr>" + 
+		task = "<div id=task"+value.id+" style='margin-bottom: 45px;'>"+
+				"<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+"</p><p> <b><i id='i"+value.id+"'>Date to finish: </i></b>"+value.dateToFinish+"</p>" +
+				"<div id=div"+value.id+" style='display:none'>" + 
 				"<p>"+value.description+"</p>" +
-				"<p>Date to finish: "+value.dateToFinish+"</p>" +
-				"<p>Created at: "+value.created_at+"</p>" +
+				"<p><b><i>Created at: </i></b>"+value.created_at+"</p>" +
 				"<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
 				"<button id='delete"+value.id+"'>Delete task</button><hr>"+
 				"</div></div>";
@@ -56,6 +55,7 @@ strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "
 	    if(dateToFinish < strDate){
 			$('#expMsg').text('');
 			$('#expired').append(task);
+			$('#i'+value.id+'').text(" Expired: ");
 		}else{
 			$('#msg').text('');
 			$('#title').prepend(task);
