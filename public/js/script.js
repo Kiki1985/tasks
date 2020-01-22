@@ -34,6 +34,7 @@ strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "
 		        data: {title: title,description: description,dateToFinish: inputDate},
 		        success: function(value){
 					$('#title').text('');
+					$('#expired').text('');
 					getTasks()
 				}
 			});
