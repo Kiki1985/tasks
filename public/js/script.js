@@ -1,6 +1,13 @@
 $( document ).ready(function() {
 if( $('#title').is(':empty') ) $('#msg').html('<i>No tasks yet</i>');
 if( $('#expired').is(':empty') ) $('#expMsg').html('<i>No expired tasks</i>');
+function getTasks(){
+	jQuery.getJSON("tasks", function(data) {
+		$.each(data, function(key, value){
+			showTask(value);
+		});
+	});
+}
 date = new Date();
 strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
 	$.ajaxSetup({
@@ -26,7 +33,8 @@ strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "
 		        type: 'post',
 		        data: {title: title,description: description,dateToFinish: inputDate},
 		        success: function(value){
-		        	showTask(value);
+					$('#title').text('');
+					getTasks()
 				}
 			});
 		}
@@ -34,12 +42,6 @@ strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "
 		$('textarea[name="description"]').val('');
 		$('input[name ="dateToFinish"]').val('');
 		return false;
-	});
-
-	jQuery.getJSON("tasks", function(data) {
-		$.each(data, function(key, value){
-			showTask(value);
-		});
 	});
 
 	function showTask(value){
@@ -80,5 +82,5 @@ strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "
 	$('#slideToggle').click(function() {
 		$('#slideToggleDiv').slideToggle("fast");
 	});
+	getTasks();
 });
-
