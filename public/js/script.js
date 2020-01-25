@@ -1,21 +1,17 @@
 $( document ).ready(function() {
 if( $('#title').is(':empty') ) $('#msg').html('<i>No tasks yet</i>');
 if( $('#expired').is(':empty') ) $('#expMsg').html('<i>No expired tasks</i>');
-function getTasks(){
-	jQuery.getJSON("tasks", function(data) {
-		$.each(data, function(key, value){
-			showTask(value);
+	function getTasks(){
+		jQuery.getJSON("tasks", function(data) {
+			$.each(data, function(key, value){
+				showTask(value);
+			});
 		});
-	});
-}
+	}
 date = new Date();
 strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
-	
+var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
+		
 	$('#createTask').click(function() {
 		title = $('input[name ="title"]').val();
 		inputDate = $('input[name ="dateToFinish"]').val();
@@ -29,12 +25,12 @@ strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "
 			return false;
 		}else{
 			$.ajax({
-		        url: 'tasks',
-		        type: 'post',
-		        data: {title: title,description: description,dateToFinish: inputDate},
-		        success: function(value){
-					$('#title').text('');
-					$('#expired').text('');
+			    url: 'tasks',
+			    type: 'post',
+			    data: {_token:CSRFtoken,title: title,description: description,dateToFinish: inputDate},
+			    success: function(value){
+					$('#title').empty();
+					$('#expired').empty();
 					getTasks()
 				}
 			});
@@ -57,11 +53,11 @@ strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "
 				"</div></div>";
 		
 	    if(value.dateToFinish < strDate){
-			$('#expMsg').text('');
+			$('#expMsg').empty();
 			$('#expired').append(task);
 			$('#i'+value.id+'').text(" Expired: ");
 		}else{
-			$('#msg').text('');
+			$('#msg').empty();
 			$('#title').append(task);
 		}
 
