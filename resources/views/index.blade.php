@@ -11,9 +11,9 @@
 </form><br>
 </div> <!-- end div id="slideToggleDiv" -->
 <h2>Tasks</h2>
-<div id="msg"></div>
 <div id="title"></div>
+<div id="msg"></div>
 <h2>Expired tasks</h2>
-<div id="expMsg"></div>
 <div id="expired"></div>
+<div id="expMsg"><i></i></div>
 @endsection
