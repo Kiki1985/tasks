@@ -1,6 +1,20 @@
 $( document ).ready(function() {
-if( $('#title').is(':empty') ) $('#msg').html('<i>No tasks yet</i>');
-if( $('#expired').is(':empty') ) $('#expMsg').html('<i>No expired tasks</i>');
+		jQuery.getJSON("tasks", function(data) {
+			$.each(data, function(key, value){
+				$( document ).ready(function() {
+					$('#p'+value.id+'').click(function() {
+						$('#div'+value.id+'').slideToggle("fast");
+					});
+					$('#delete'+value.id+'').click(function() {
+						$("#task"+value.id+"").remove();
+						$.ajax({
+		       				url: '/delete/'+value.id+'',
+		        			type: 'get',
+		       		  	});
+					});
+				});
+			});
+		});
 	function showTasks(){
 	var tasks = new Array();
 	var expired = new Array();
@@ -17,10 +31,7 @@ if( $('#expired').is(':empty') ) $('#expMsg').html('<i>No expired tasks</i>');
 				   "</div></div>";
 				if(value.dateToFinish < strDate){
 					expired.push(task);
-					$('#i'+value.id+'').text(" Expired: ");
-					$('#expMsg').empty();
 				}else{
-					$('#msg').empty();
 					tasks.push(task);
 				}
 				$( document ).ready(function() {
@@ -29,8 +40,6 @@ if( $('#expired').is(':empty') ) $('#expMsg').html('<i>No expired tasks</i>');
 					});
 					$('#delete'+value.id+'').click(function() {
 						$("#task"+value.id+"").remove();
-						if( $('#title').is(':empty') ) $('#msg').html('<i>No tasks yet</i>');
-						if( $('#expired').is(':empty') ) $('#expMsg').html('<i>No expired tasks</i>');
 						$.ajax({
 		       				url: '/delete/'+value.id+'',
 		        			type: 'get',
@@ -74,5 +83,4 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	$('#slideToggle').click(function() {
 		$('#slideToggleDiv').slideToggle("fast");
 	});
-	showTasks();
 });
