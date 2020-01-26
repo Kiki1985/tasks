@@ -1,23 +1,14 @@
 $( document ).ready(function() {
 		jQuery.getJSON("tasks", function(data) {
 			$.each(data, function(key, value){
-				$( document ).ready(function() {
-					$('#p'+value.id+'').click(function() {
-						$('#div'+value.id+'').slideToggle("fast");
-					});
-					$('#delete'+value.id+'').click(function() {
-						$("#task"+value.id+"").remove();
-						$.ajax({
-		       				url: '/delete/'+value.id+'',
-		        			type: 'get',
-		       		  	});
-					});
-				});
+
+				deleteOrUpdate(value);
+
 			});
 		});
 	function showTasks(){
-	var tasks = new Array();
-	var expired = new Array();
+		var tasks = new Array();
+		var expired = new Array();
 		jQuery.getJSON("tasks", function(data) {
 			$.each(data, function(key, value){
 			task = "<div id=task"+value.id+" style='margin-bottom: 45px;'>"+
@@ -34,18 +25,7 @@ $( document ).ready(function() {
 				}else{
 					tasks.push(task);
 				}
-				$( document ).ready(function() {
-					$('#p'+value.id+'').click(function() {
-						$('#div'+value.id+'').slideToggle("fast");
-					});
-					$('#delete'+value.id+'').click(function() {
-						$("#task"+value.id+"").remove();
-						$.ajax({
-		       				url: '/delete/'+value.id+'',
-		        			type: 'get',
-		       		  	});
-					});
-				});
+				deleteOrUpdate(value);
 			});
 			$("#title").html(tasks);
 			$("#expired").html(expired);
@@ -83,4 +63,18 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	$('#slideToggle').click(function() {
 		$('#slideToggleDiv').slideToggle("fast");
 	});
+	function deleteOrUpdate(value){
+		$( document ).ready(function() {
+			$('#p'+value.id+'').click(function() {
+				$('#div'+value.id+'').slideToggle("fast");
+			});
+			$('#delete'+value.id+'').click(function() {
+				$("#task"+value.id+"").remove();
+				$.ajax({
+		       		url: '/delete/'+value.id+'',
+		        	type: 'get',
+		       	});
+			});
+		});
+	}
 });
