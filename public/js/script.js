@@ -68,6 +68,10 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 		       		url: '/delete/'+value.id+'',
 		        	type: 'get',
 		       	});
+				if(("#task"+value.id+"").length) {
+					$('#title').html('<p><i>No tasks yet</i></p>')
+				 	$('#expired').html('<p><i>No expired tasks</i></p>')
+				}
 			});
 		});
 	}
