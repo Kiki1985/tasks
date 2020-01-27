@@ -1,18 +1,11 @@
 $( document ).ready(function() {
-		jQuery.getJSON("tasks", function(data) {
-			$.each(data, function(key, value){
-
-				deleteOrUpdate(value);
-
-			});
-		});
 	function showTasks(){
 		var tasks = new Array();
-		var expired = new Array();
 		jQuery.getJSON("tasks", function(data) {
 			$.each(data, function(key, value){
-			task = "<div id=task"+value.id+" style='margin-bottom: 45px;'>"+
-				   "<p style='cursor:pointer' id='p"+value.id+"'>"+value.title+"</p>"+
+				if(value.dateToFinish >= strDate){
+				task = "<div id=task"+value.id+" style='margin-bottom: 45px;'>"+
+				   "<p style='cursor:pointer;color:red' id='p"+value.id+"'>"+value.title+"</p>"+
 				   "<p> <b><i id='i"+value.id+"'>Date to finish: </i></b>"+value.dateToFinish+"</p>"+
 				   "<div id='div"+value.id+"' style='display:none'>"+ 
 				   "<p>"+value.description+"</p>"+
@@ -20,15 +13,11 @@ $( document ).ready(function() {
 				   "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
 				   "<button id='delete"+value.id+"'>Delete task</button><hr>"+
 				   "</div></div>";
-				if(value.dateToFinish < strDate){
-					expired.push(task);
-				}else{
-					tasks.push(task);
-				}
+				tasks.push(task);
 				deleteOrUpdate(value);
+				}
 			});
 			$("#title").html(tasks);
-			$("#expired").html(expired);
 		});
 	}
 date = new Date();
@@ -62,6 +51,11 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	});
 	$('#slideToggle').click(function() {
 		$('#slideToggleDiv').slideToggle("fast");
+	});
+	jQuery.getJSON("tasks", function(data) {
+		$.each(data, function(key, value){
+			deleteOrUpdate(value);
+		});
 	});
 	function deleteOrUpdate(value){
 		$( document ).ready(function() {
