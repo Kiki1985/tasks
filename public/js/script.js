@@ -34,7 +34,14 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
                         return new Date($(a).data("date")) - new Date($(b).data("date"));
                     });
                     $("#title").html(tasks);
-                    deleteOrUpdate(value);
+                    //deleteOrUpdate(value);
+                    jQuery.getJSON("tasks", function(data) {
+						$.each(data, function(key, value){
+							if(value.dateToFinish >= strDate){
+							deleteOrUpdate(value);
+							}
+						});
+					});
 				}
 			});
 		}
@@ -46,14 +53,14 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	$('#slideToggle').click(function() {
 		$('#slideToggleDiv').slideToggle("fast");
 	});
-	jQuery.getJSON("tasks", function(data) {
-		$.each(data, function(key, value){
-			if(value.dateToFinish < strDate){
-				$("#task"+value.id+"").removeAttr( "data-date" );
-			}
-			deleteOrUpdate(value);
+		jQuery.getJSON("tasks", function(data) {
+			$.each(data, function(key, value){
+				if(value.dateToFinish < strDate){
+					$("#task"+value.id+"").removeAttr( "data-date" );
+				}
+				deleteOrUpdate(value);
+			});
 		});
-	});
 	function deleteOrUpdate(value){
 		$( document ).ready(function() {
 			$('#p'+value.id+'').click(function() {
