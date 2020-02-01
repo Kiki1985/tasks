@@ -25,7 +25,7 @@ class TasksController extends Controller
 
     public function show()
     {
-        $tasks = Task::orderBy('dateToFinish', 'asc')->get();
+        $tasks = Task::all();
         return($tasks);
     }
 

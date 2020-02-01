@@ -12,18 +12,14 @@
 </div> <!-- end div id="slideToggleDiv" -->
 <h2>Tasks</h2>
 <div id="title">
-@if($tasks->isEmpty())
-<p><i>No tasks yet</i></p>
-@endif
+
 @foreach($tasks as $task)
 @include('task')
 @endforeach
 </div>
 <h2>Expired tasks</h2>
 <div id="expired">
-@if($expireds->isEmpty())
-<p><i>No expired tasks</i></p>
-@endif
+
 @foreach($expireds as $task)
 @include('task')
 @endforeach
