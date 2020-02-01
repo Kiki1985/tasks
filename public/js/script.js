@@ -36,7 +36,6 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
                     $("#title").html(tasks);
                     deleteOrUpdate(value);
 				}
-
 			});
 		}
 		$('input[name ="title"]').val('');
@@ -49,8 +48,10 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	});
 	jQuery.getJSON("tasks", function(data) {
 		$.each(data, function(key, value){
+			if(value.dateToFinish < strDate){
+				$("#task"+value.id+"").removeAttr( "data-date" );
+			}
 			deleteOrUpdate(value);
-			
 		});
 	});
 	function deleteOrUpdate(value){
@@ -67,5 +68,4 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 			});
 		});
 	}
-	
 });
