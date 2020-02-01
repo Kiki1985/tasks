@@ -19,30 +19,35 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 			    type: 'post',
 			    data: {_token:CSRFtoken,title: title,description: description,dateToFinish: inputDate},
 			    success: function(value){
-			    	tasks = $.makeArray($("[data-date]"));
-                    task = "<div id=task"+value.id+" style='margin-bottom: 45px;' data-date='"+value.dateToFinish+"'>"+
-                            "<p style='cursor:pointer;color:red' id='p"+value.id+"'>"+value.title+"</p>"+
-                            "<p> <b><i id='i"+value.id+"'>Date to finish: </i></b>"+value.dateToFinish+"</p>"+
-                            "<div id='div"+value.id+"' style='display:none'>"+ 
-                            "<p>"+value.description+"</p>"+
-                            "<p><b><i>Created at: </i></b>"+value.created_at+"</p>"+
-                            "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
-                            "<button id='delete"+value.id+"'>Delete task</button><hr>"+
-                            "</div></div>";
+			    tasks = $.makeArray($( "#title" ).find("[data-date]"));
+                task = "<div id=task"+value.id+" style='margin-bottom: 45px;' data-date='"+value.dateToFinish+"'>"+
+                       "<p class='title' style='cursor:pointer;color:red' id='"+value.id+"'>"+value.title+"</p>"+
+                       "<p> <b><i id='i"+value.id+"'>Date to finish: </i></b>"+value.dateToFinish+"</p>"+
+                       "<div id='div"+value.id+"' style='display:none'>"+ 
+                       "<p>"+value.description+"</p>"+
+                       "<p><b><i>Created at: </i></b>"+value.created_at+"</p>"+
+                       "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
+                       "<button class='delete' id='"+value.id+"'>Delete task</button><hr>"+
+                       "</div></div>";
                     tasks.push(task);
                     tasks.sort(function(a, b) {
                         return new Date($(a).data("date")) - new Date($(b).data("date"));
                     });
+                    
                     $("#title").html(tasks);
-                    //deleteOrUpdate(value);
-                    jQuery.getJSON("tasks", function(data) {
-						$.each(data, function(key, value){
-							if(value.dateToFinish >= strDate){
-							deleteOrUpdate(value);
-							}
-						});
+                    $( "#title" ).find( ".title" ).click(function(evt){
+	        		id = $(this).attr("id");
+	        		$('#div'+id+'').slideToggle("fast");
+	        		});
+	        		$( "#title" ).find('.delete').click(function(evt) {
+					id = $(this).attr("id");
+					$("#task"+id+"").remove();
+						$.ajax({
+			       			url: '/delete/'+id+'',
+			        		type: 'get',
+			       		});
 					});
-				}
+                }
 			});
 		}
 		$('input[name ="title"]').val('');
@@ -53,26 +58,18 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	$('#slideToggle').click(function() {
 		$('#slideToggleDiv').slideToggle("fast");
 	});
-		jQuery.getJSON("tasks", function(data) {
-			$.each(data, function(key, value){
-				if(value.dateToFinish < strDate){
-					$("#task"+value.id+"").removeAttr( "data-date" );
-				}
-				deleteOrUpdate(value);
-			});
+	$( document ).ready(function() {
+		$(".title").click(function(evt){
+	        id = $(this).attr("id");
+	        $('#div'+id+'').slideToggle("fast");
+	    });
+		$('.delete').click(function(evt) {
+			id = $(this).attr("id");
+			$("#task"+id+"").remove();
+			$.ajax({
+		       	url: '/delete/'+id+'',
+		        type: 'get',
+		    });
 		});
-	function deleteOrUpdate(value){
-		$( document ).ready(function() {
-			$('#p'+value.id+'').click(function() {
-				$('#div'+value.id+'').slideToggle("fast");
-			});
-			$('#delete'+value.id+'').click(function() {
-				$("#task"+value.id+"").remove();
-				$.ajax({
-		       		url: '/delete/'+value.id+'',
-		        	type: 'get',
-		       	});
-			});
-		});
-	}
+	});	
 });

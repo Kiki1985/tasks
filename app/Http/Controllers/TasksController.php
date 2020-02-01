@@ -23,12 +23,6 @@ class TasksController extends Controller
         return ($task); 
     }
 
-    public function show()
-    {
-        $tasks = Task::all();
-        return($tasks);
-    }
-
     public function destroy(Task $task)
     {
         $task->delete();
