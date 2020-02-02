@@ -20,15 +20,14 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 			    data: {_token:CSRFtoken,title: title,description: description,dateToFinish: inputDate},
 			    success: function(value){
 			    tasks = $.makeArray($( "#title" ).find("[data-date]"));
-				task = $('<div/>').attr({ id:"task"+value.id+"", "data-date":""+value.dateToFinish+""}).css("margin-bottom", "45px").append(
+				tasks.push($('<div/>').attr({ id:"task"+value.id+"", "data-date":""+value.dateToFinish+""}).css("margin-bottom", "45px").append(
                 	   $('<p/>').attr({'class':'title', 'id':''+value.id+''}).text(value.title).css({"cursor":"pointer", "color":"red"}), 
 					   $('<p/>').html("<b><i>Date to finish: </i></b>"+value.dateToFinish+""),
 					   $('<div/>').attr('id', 'div'+value.id+'').css("display","none").append(
 		               $('<p/>').text(value.description),$('<p/>').html("<b><i>Created at: </i></b>"+value.created_at+""),
 		               $("<a/>").attr('href', "/tasks/"+value.id+"/edit").html("<button>Update task</button>"),
 		               $("<button/>").attr({'class':'delete', 'id':''+value.id+''}).text("Delete task"),
-		               $("<hr/>")));
-				tasks.push(task);
+		               $("<hr/>"))));
                     tasks.sort(function(a, b) {
                         return new Date($(a).data("date")) - new Date($(b).data("date"));
                     });
