@@ -20,16 +20,32 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 			    data: {_token:CSRFtoken,title: title,description: description,dateToFinish: inputDate},
 			    success: function(value){
 			    tasks = $.makeArray($( "#title" ).find("[data-date]"));
-                task = "<div id=task"+value.id+" style='margin-bottom: 45px;' data-date='"+value.dateToFinish+"'>"+
-                       "<p class='title' style='cursor:pointer;color:red' id='"+value.id+"'>"+value.title+"</p>"+
-                       "<p> <b><i id='i"+value.id+"'>Date to finish: </i></b>"+value.dateToFinish+"</p>"+
-                       "<div id='div"+value.id+"' style='display:none'>"+ 
-                       "<p>"+value.description+"</p>"+
-                       "<p><b><i>Created at: </i></b>"+value.created_at+"</p>"+
-                       "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
-                       "<button class='delete' id='"+value.id+"'>Delete task</button><hr>"+
-                       "</div></div>";
-                tasks.push(task);
+				task = $('<div/>')
+                		.attr({ id:"task"+value.id+"", "data-date":""+value.dateToFinish+""})
+                		.css("margin-bottom", "45px")
+						.append(
+	                		$('<p/>')
+	                		.attr({'class':'title', 'id':''+value.id+''})
+	                		.text(value.title)
+	                		.css({"cursor":"pointer", "color":"red"}), 
+							$('<p/>')
+	                		.html("<b><i id='i"+value.id+"'>Date to finish: </i></b>"+value.dateToFinish+""),
+							$('<div/>')
+	                		.attr('id', 'div'+value.id+'')
+	                		.css("display","none")
+	                		.append(
+		                		$('<p/>')
+		                		.text(value.description),
+		                		$('<p/>')
+		                		.html("<b><i>Created at: </i></b>"+value.created_at+""),
+		                		$("<a/>")
+		                		.attr('href', "/tasks/"+value.id+"/edit")
+		                		.html("<button>Update task</button>"),
+		                		$("<button/>")
+		                		.attr({'class':'delete', 'id':''+value.id+''})
+		                		.text("Delete task"),
+		                		$("<hr/>")));
+				tasks.push(task);
                     tasks.sort(function(a, b) {
                         return new Date($(a).data("date")) - new Date($(b).data("date"));
                     });
