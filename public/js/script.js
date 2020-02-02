@@ -22,7 +22,7 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 			    tasks = $.makeArray($( "#title" ).find("[data-date]"));
 				task = $('<div/>').attr({ id:"task"+value.id+"", "data-date":""+value.dateToFinish+""}).css("margin-bottom", "45px").append(
                 	   $('<p/>').attr({'class':'title', 'id':''+value.id+''}).text(value.title).css({"cursor":"pointer", "color":"red"}), 
-					   $('<p/>').html("<b><i class='i'>Date to finish: </i></b>"+value.dateToFinish+""),
+					   $('<p/>').html("<b><i>Date to finish: </i></b>"+value.dateToFinish+""),
 					   $('<div/>').attr('id', 'div'+value.id+'').css("display","none").append(
 		               $('<p/>').text(value.description),$('<p/>').html("<b><i>Created at: </i></b>"+value.created_at+""),
 		               $("<a/>").attr('href', "/tasks/"+value.id+"/edit").html("<button>Update task</button>"),
@@ -46,9 +46,7 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	$('#slideToggle').click(function() {
 		$('#slideToggleDiv').slideToggle("fast");
 	});
-
 	$( "#expired" ).find( ".i" ).text( "Expired: " );
-
 	function updateOrDelete(){
 		$(".title").click(function(){
 	    id = $(this).attr("id");
