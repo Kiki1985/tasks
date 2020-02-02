@@ -29,24 +29,13 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
                        "<a href='/tasks/"+value.id+"/edit'><button>Update task</button></a>"+
                        "<button class='delete' id='"+value.id+"'>Delete task</button><hr>"+
                        "</div></div>";
-                    tasks.push(task);
+                tasks.push(task);
                     tasks.sort(function(a, b) {
                         return new Date($(a).data("date")) - new Date($(b).data("date"));
                     });
-                    
                     $("#title").html(tasks);
-                    $( "#title" ).find( ".title" ).click(function(evt){
-	        		id = $(this).attr("id");
-	        		$('#div'+id+'').slideToggle("fast");
-	        		});
-	        		$( "#title" ).find('.delete').click(function(evt) {
-					id = $(this).attr("id");
-					$("#task"+id+"").remove();
-						$.ajax({
-			       			url: '/delete/'+id+'',
-			        		type: 'get',
-			       		});
-					});
+                    $("#expired p").removeClass("title");
+					updateOrDelete();
                 }
 			});
 		}
@@ -58,18 +47,16 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	$('#slideToggle').click(function() {
 		$('#slideToggleDiv').slideToggle("fast");
 	});
-	$( document ).ready(function() {
-		$(".title").click(function(evt){
-	        id = $(this).attr("id");
-	        $('#div'+id+'').slideToggle("fast");
-	    });
-		$('.delete').click(function(evt) {
-			id = $(this).attr("id");
-			$("#task"+id+"").remove();
-			$.ajax({
-		       	url: '/delete/'+id+'',
-		        type: 'get',
-		    });
+	function updateOrDelete(){
+		$(".title").click(function(){
+	    id = $(this).attr("id");
+		$('#div'+id+'').slideToggle("fast");
 		});
-	});	
+		$('.delete').click(function() {
+		id = $(this).attr("id");
+		$("#task"+id+"").remove();
+		$.get("delete/"+id+"");
+		});
+	}
+	updateOrDelete();
 });
