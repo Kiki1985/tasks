@@ -1,6 +1,5 @@
 $( document ).ready(function() {
-date = new Date();
-strDate = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" + ("0" + date.getDate()).slice(-2);
+date = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
 var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	$('#createTask').click(function() {
 		title = $('input[name ="title"]').val();
@@ -10,7 +9,7 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 			alert("Please Fill All Required Fields");
 			return false;
 		}
-		if(inputDate < strDate){
+		if(inputDate < date){
 			alert("Invalid date");
 			return false;
 		}else{
