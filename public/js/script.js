@@ -18,13 +18,18 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 			    type: 'post',
 			    data: {_token:CSRFtoken,title: title,description: description,dateToFinish: inputDate},
 			    success: function(value){
+			    	const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+			    	finDate = new Date(value.dateToFinish);
+			    	createdAt = new Date(value.created_at);
+			    	finDate = months[finDate.getMonth()] + " " + finDate.getDate()+ ", " + finDate.getFullYear();
+			    	createdAt = months[createdAt.getMonth()] + " " + createdAt.getDate()+ ", " + createdAt.getFullYear();
 			    tasks = $.makeArray($( "#title" ).find("[data-date]"));
 				tasks.push(
 					$('<div/>').attr("data-date",""+value.dateToFinish+"").css("margin-bottom", "45px").append(
 	                $('<p/>').attr('class','title').text(value.title).css("cursor","pointer"), 
-					$('<p/>').html("<b><i>Date to finish: </i></b>"+value.dateToFinish+""),
+					$('<p/>').html("<b><i>Date to finish: </i></b>"+finDate+""),
 					$('<div/>').css("display","none").append(
-			        $('<p/>').text(value.description),$('<p/>').html("<b><i>Created at: </i></b>"+value.created_at+""),
+			        $('<p/>').text(value.description),$('<p/>').html("<b><i>Created at: </i></b>"+createdAt+""),
 			        $("<a/>").attr('href', "/tasks/"+value.id+"/edit").html("<button>Update task</button>"),
 			        $("<button/>").attr({'class':'delete', 'id':''+value.id+''}).text("Delete task"),
 			        $("<hr/>"))));

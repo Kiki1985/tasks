@@ -10,13 +10,11 @@
 	<button id="createTask">Create</button>
 </form><br>
 </div> <!-- end div id="slideTask" -->
-
 <div id="title">
 @foreach($tasks as $task)
 @include('task')
 @endforeach
 </div>
-
 <div id="expired">
 @foreach($expireds as $task)
 @include('task')
