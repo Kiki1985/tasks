@@ -37,7 +37,6 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
                         return new Date($(a).data("date")) - new Date($(b).data("date"));
                     });
                     $("#title").html(tasks);
-                    $("#expired p").removeClass("title");
 					updateOrDelete();
                 }
 			});
@@ -50,7 +49,9 @@ var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
 	$('#slideTask').click(function() {
 		$(this).next().slideToggle("fast");
 	});
-	$( "#expired" ).find( ".i" ).text( "Expired: " );
+	$( "[data-date]" ).each(function() {
+    	if(($(this).data("date")) < date) $(this).find( ".i" ).text("Expired: ");
+	});
 	function updateOrDelete(){
 		$(".title").click(function(){
 	    $(this).next().next().slideToggle("fast");
