@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Task;
 
@@ -13,13 +14,15 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-        if(request('dateToFinish') < date('Y-m-d')) return back();
+        if (request('dateToFinish') < date('Y-m-d')) {
+            return back();
+        }
         $task = Task::create(request()->validate([
             'title'=>['required', 'min:3'],
             'description'=>['required', 'min:3'],
             'dateToFinish'=>'required'
             ]));
-        return ($task); 
+        return ($task);
     }
 
     public function destroy(Task $task)
