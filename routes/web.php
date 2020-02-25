@@ -1,5 +1,5 @@
 <?php
-Route::get('/tasks', 'TasksController@index');
+/*Route::get('/tasks', 'TasksController@index');
 
 Route::post('/tasks', 'TasksController@store');
 
@@ -7,6 +7,6 @@ Route::get('/tasks/{task}/edit', 'TasksController@edit');
 
 Route::patch('/tasks/{task}', 'TasksController@update');
 
-Route::delete('/tasks/{task}', 'TasksController@destroy');
+Route::delete('/tasks/{task}', 'TasksController@destroy');*/
 
-//Route::resource('tasks', 'TasksController');
+Route::resource('tasks', 'TasksController');
