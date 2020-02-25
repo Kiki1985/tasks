@@ -20,7 +20,7 @@
 	</p>
 	<div style='display:none'>
 		<p>{{$task->description}}</p>
-		<p><b><i>Created at: </i></b>{{$task->created_at->toFormattedDateString()}}</p>
+		<p><b><i>Created at: </i></b>{{$task->created_at->diffForHumans()}}</p>
 		<a href='/tasks/{{$task->id}}/edit'><button>Update task</button></a>
 		<button class="delete" id='{{$task->id}}'>Delete task</button><hr>
 	</div>

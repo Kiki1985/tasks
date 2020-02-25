@@ -4,7 +4,7 @@
 <h1>{{$task->title}}</h1>
 <hr>
 <p>{{$task->description}}</p>
-<p>Expected finish date: {{\Carbon\Carbon::parse($task->dateToFinish)->toFormattedDateString()}}</p>
+<p>Date to finish: {{\Carbon\Carbon::parse($task->dateToFinish)->toFormattedDateString()}}</p>
 <p>Created {{\Carbon\Carbon::parse($task->created_at)->diffForHumans()}}</p><hr>
 <h2>Update task</h2>
 <form method="POST" action="/tasks/{{$task->id}}">
