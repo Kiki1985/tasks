@@ -68,7 +68,11 @@ $(document).ready(function () {
         });
         $('.delete').click(function () {
             $(this).parent().parent().remove();
-            $.get("delete/"+$(this).attr('id')+"");
+            $.ajax({
+                url: 'tasks/'+$(this).attr('id')+'',
+                type: 'post',
+                data: {'_method': 'DELETE'}
+            });
         });
     }
     updateOrDelete();
