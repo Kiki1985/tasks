@@ -11,7 +11,7 @@
 @method('PATCH')
 @csrf
 	<input type="text" name="title" placeholder="task" value="{{$task->title}}" required="required" /><br><br>
-	<input type="date" name="dateToFinish" value="{{$task->dateToFinish}}" required="required" /><br><br>
+	<input type="date" name="dateToFinish" value="{{date('Y-m-d',strtotime($task->dateToFinish))}}" required="required" /><br><br>
 	<textarea name="description" placeholder="description" required="required" />{{$task->description}}</textarea><br><br>
 	<input type="submit" value="Update">
 </form><br>

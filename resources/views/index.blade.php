@@ -16,7 +16,7 @@
 	<p class="title" style='cursor:pointer'>{{$task->title}}</p>
 	<p> 
 	<b><i class='i'>Date to finish: </i></b> 
-	{{$task->created_at->toFormattedDateString()}}
+	{{$task->dateToFinish->toFormattedDateString()}}
 	</p>
 	<div style='display:none'>
 		<p>{{$task->description}}</p>
