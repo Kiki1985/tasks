@@ -1,6 +1,9 @@
 $(document).ready(function () {
     date = new Date().getFullYear() + "-" + ("0" + (new Date().getMonth() + 1)).slice(-2) + "-" + ("0" + new Date().getDate()).slice(-2);
-    var CSRFtoken = $('meta[name="csrf-token"]').attr('content');
+    $.ajaxSetup({
+        headers:
+        { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    });
     $('#createTask').click(function () {
         title = $('input[name ="title"]').val();
         inputDate = $('input[name ="dateToFinish"]').val();
@@ -16,7 +19,7 @@ $(document).ready(function () {
             $.ajax({
                 url: 'tasks',
                 type: 'post',
-                data: {_token:CSRFtoken,title: title,description: description,dateToFinish: inputDate},
+                data: {title: title,description: description,dateToFinish: inputDate},
                 success: function (value) {
                     const months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                     finDate = new Date(value.dateToFinish);

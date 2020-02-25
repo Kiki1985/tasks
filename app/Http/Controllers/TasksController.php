@@ -43,6 +43,6 @@ class TasksController extends Controller
                 'description'=>'required',
                 'dateToFinish'=>'required'
                 ]));
-        return redirect('/');
+        return redirect('/tasks');
     }
 }
