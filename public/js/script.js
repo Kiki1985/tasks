@@ -34,7 +34,26 @@ $(document).ready(function () {
                             $('<div/>').css("display","none").append(
                                 $('<p/>').text(value.description),
                                 $('<p/>').html("<b><i>Created at: </i></b>"+createdAt+""),
-                                $("<a/>").attr('href', "/tasks/"+value.id+"/edit").html("<button>Update task</button>"),
+                                $('<div/>').css("display","none").append(
+                                    $('<h3/>').text('Update task'),
+                                    $('<form/>').attr({'method':'post', 'action':'tasks/'+value.id+''}).append(
+                                        $('<input/>').attr({'type':'hidden', 'name':'_method', 'value':'patch'}),
+                                        $('<input/>').attr({'type':'hidden', 'name':'_token', 'value':''+$('meta[name="csrf-token"]').attr('content')+''}),
+                                        $('<input/>').attr({'type':'text', 'name':'title', 'value':''+value.title+'', 'required': 'required'}),
+                                        $('<br/>'),
+                                        $('<br/>'),
+                                        $('<input/>').attr({'type':'date', 'name':'dateToFinish', 'value':''+ new Date(value.dateToFinish).getFullYear() + "-" + ("0" + (new Date(value.dateToFinish).getMonth() + 1)).slice(-2) + "-" + ("0" + new Date(value.dateToFinish).getDate()).slice(-2)+'', 'required': 'required'}),
+                                        $('<br/>'),
+                                        $('<br/>'),
+                                        $('<textarea/>').attr({'name':'description', 'required':'required'}).text(''+value.description+''),
+                                        $('<br/>'),
+                                        $('<br/>'),
+                                        $('<input/>').attr({'type':'submit', 'value':'Update'}),
+                                        $('<br/>'),
+                                        $('<br/>')
+                                    )
+                                ),
+                                $("<button/>").attr('class','update').text("Update task"),
                                 $("<button/>").attr({'class':'delete', 'id':''+value.id+''}).text("Delete task"),
                                 $("<hr/>")
                             )
@@ -48,9 +67,9 @@ $(document).ready(function () {
                 }
             });
         }
-        $('input[name ="title"]').val('');
-        $('textarea[name="description"]').val('');
-        $('input[name ="dateToFinish"]').val('');
+        $('input[name ="title"]').first().val('');
+        $('textarea[name="description"]').first().val('');
+        $('input[name ="dateToFinish"]').first().val('');
         return false;
     });
     $('#slideTask').click(function () {
@@ -73,6 +92,10 @@ $(document).ready(function () {
                 type: 'post',
                 data: {'_method': 'DELETE'}
             });
+        });
+        $('.update').click(function () {
+            $(this).prev().slideToggle("fast");
+            $(this).remove();
         });
     }
     updateOrDelete();

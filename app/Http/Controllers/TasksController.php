@@ -31,11 +31,6 @@ class TasksController extends Controller
         return back();
     }
 
-    public function edit(Task $task)
-    {
-        return view('tasks.edit', compact('task'));
-    }
-
     public function update(Task $task)
     {
         $task->update(request()->validate([

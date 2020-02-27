@@ -21,7 +21,18 @@
 	<div style='display:none'>
 		<p>{{$task->description}}</p>
 		<p><b><i>Created at: </i></b>{{$task->created_at->diffForHumans()}}</p>
-		<a href='/tasks/{{$task->id}}/edit'><button>Update task</button></a>
+		<div style='display:none'>
+			<h3>Update task</h3>
+			<form method="POST" action="/tasks/{{$task->id}}">
+			@method('PATCH')
+			@csrf
+			<input type="text" name="title" placeholder="task" value="{{$task->title}}" required="required" /><br><br>
+			<input type="date" name="dateToFinish" value="{{date('Y-m-d',strtotime($task->dateToFinish))}}"  required="required" /><br><br>
+			<textarea name="description" placeholder="description" autocomplete="off" required="required" />{{$task->description}}</textarea><br><br>
+			<input type="submit" value="Update">
+			</form><br>
+		</div>
+		<button class="update">Update task</button>
 		<button class="delete" id='{{$task->id}}'>Delete task</button><hr>
 	</div>
 </div>
