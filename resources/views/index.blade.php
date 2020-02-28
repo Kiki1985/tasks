@@ -22,7 +22,7 @@
 		<p>{{$task->description}}</p>
 		<p><b><i>Created at: </i></b>{{$task->created_at->diffForHumans()}}</p>
 		<div style='display:none'>
-			<h3>Update task</h3>
+			<h3>Update {{$task->title}}</h3>
 			<form method="POST" action="/tasks/{{$task->id}}">
 			@method('PATCH')
 			@csrf

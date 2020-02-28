@@ -35,7 +35,7 @@ $(document).ready(function () {
                                 $('<p/>').text(value.description),
                                 $('<p/>').html("<b><i>Created at: </i></b>"+createdAt+""),
                                 $('<div/>').css("display","none").append(
-                                    $('<h3/>').text('Update task'),
+                                    $('<h3/>').text('Update '+value.title+''),
                                     $('<form/>').attr({'method':'post', 'action':'tasks/'+value.id+''}).append(
                                         $('<input/>').attr({'type':'hidden', 'name':'_method', 'value':'patch'}),
                                         $('<input/>').attr({'type':'hidden', 'name':'_token', 'value':''+$('meta[name="csrf-token"]').attr('content')+''}),
