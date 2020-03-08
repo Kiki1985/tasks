@@ -10,16 +10,16 @@ use Illuminate\Queue\SerializesModels;
 class TaskDeleted extends Mailable
 {
     use Queueable, SerializesModels;
-    public $task;
+    
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($task)
+    public function __construct()
     {
-        $this->task = $task;
+        
     }
 
     /**

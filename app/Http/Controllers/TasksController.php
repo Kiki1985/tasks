@@ -3,9 +3,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
-use App\Mail\TaskCreated;
-use App\Mail\TaskDeleted;
-use App\Mail\TaskUpdated;
+use App\Jobs\SendEmailTaskCreatedJob;
+use App\Jobs\SendEmailTaskDeletedJob;
+use App\Jobs\SendEmailTaskUpdatedJob;
 
 class TasksController extends Controller
 {
@@ -25,18 +25,17 @@ class TasksController extends Controller
             'description'=>['required', 'min:3'],
             'dateToFinish'=>'required'
             ]));
-        \Mail::to('tasks@test.com')->send(
-            new TaskCreated($task)
-        );
+        SendEmailTaskCreatedJob::dispatch($task)
+                ->delay(now()->addSeconds(5));
         return ($task);
     }
 
     public function destroy(Task $task)
     {
+        SendEmailTaskDeletedJob::dispatch($task)
+                ->delay(now()->addSeconds(5));
         $task->delete();
-        \Mail::to('tasks@test.com')->send(
-            new TaskDeleted($task)
-        );
+        
         return back();
     }
 
@@ -47,9 +46,8 @@ class TasksController extends Controller
                 'description'=>'required',
                 'dateToFinish'=>'required'
                 ]));
-        \Mail::to('tasks@test.com')->send(
-            new TaskUpdated($task)
-        );
+        SendEmailTaskUpdatedJob::dispatch()
+                ->delay(now()->addSeconds(5));
         return redirect('/tasks');
     }
 }

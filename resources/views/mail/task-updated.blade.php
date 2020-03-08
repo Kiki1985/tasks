@@ -1,7 +1,5 @@
 @component('mail::message')
-# Task Updated: {{$task->title}}
-
-{{$task->description}}
+# Task Updated: 
 
 @component('mail::button', ['url' => url('/tasks')])
 View Task

@@ -1,7 +1,5 @@
 @component('mail::message')
-# Task Deleted: {{$task->title}}
-
-{{$task->description}}
+# Task Deleted: 
 
 @component('mail::button', ['url' => ''])
 View Task
