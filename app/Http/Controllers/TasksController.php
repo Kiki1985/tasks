@@ -20,11 +20,7 @@ class TasksController extends Controller
         if (request('dateToFinish') < date('Y-m-d')) {
             return back();
         }
-        $task = Task::create(request()->validate([
-            'title'=>['required', 'min:3'],
-            'description'=>['required', 'min:3'],
-            'dateToFinish'=>'required'
-            ]));
+        $task = Task::create($this->validateTask());
         SendEmailTaskCreatedJob::dispatch($task)
                 ->delay(now()->addSeconds(5));
         return ($task);
@@ -32,22 +28,26 @@ class TasksController extends Controller
 
     public function destroy(Task $task)
     {
-        SendEmailTaskDeletedJob::dispatch($task)
+        SendEmailTaskDeletedJob::dispatch()
                 ->delay(now()->addSeconds(5));
         $task->delete();
-        
         return back();
     }
 
     public function update(Task $task)
     {
-        $task->update(request()->validate([
-                'title'=>'required',
-                'description'=>'required',
-                'dateToFinish'=>'required'
-                ]));
+        $task->update($this->validateTask());
         SendEmailTaskUpdatedJob::dispatch()
                 ->delay(now()->addSeconds(5));
         return redirect('/tasks');
+    }
+
+    protected function validateTask()
+    {
+        return request()->validate([
+            'title'=>['required', 'min:3'],
+            'description'=>['required', 'min:3'],
+            'dateToFinish'=>'required'
+        ]);
     }
 }

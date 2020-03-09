@@ -10,7 +10,6 @@ use Illuminate\Queue\SerializesModels;
 class TaskDeleted extends Mailable
 {
     use Queueable, SerializesModels;
-    
 
     /**
      * Create a new message instance.
@@ -19,7 +18,7 @@ class TaskDeleted extends Mailable
      */
     public function __construct()
     {
-        
+       
     }
 
     /**
