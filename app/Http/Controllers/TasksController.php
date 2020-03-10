@@ -3,9 +3,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
-use App\Jobs\SendEmailTaskCreatedJob;
-use App\Jobs\SendEmailTaskDeletedJob;
-use App\Jobs\SendEmailTaskUpdatedJob;
 
 class TasksController extends Controller
 {
@@ -21,15 +18,11 @@ class TasksController extends Controller
             return back();
         }
         $task = Task::create($this->validateTask());
-        SendEmailTaskCreatedJob::dispatch($task)
-                ->delay(now()->addSeconds(5));
         return ($task);
     }
 
     public function destroy(Task $task)
     {
-        SendEmailTaskDeletedJob::dispatch()
-                ->delay(now()->addSeconds(5));
         $task->delete();
         return back();
     }
@@ -37,8 +30,6 @@ class TasksController extends Controller
     public function update(Task $task)
     {
         $task->update($this->validateTask());
-        SendEmailTaskUpdatedJob::dispatch()
-                ->delay(now()->addSeconds(5));
         return redirect('/tasks');
     }
 

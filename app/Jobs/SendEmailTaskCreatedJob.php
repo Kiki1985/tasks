@@ -13,9 +13,8 @@ class SendEmailTaskCreatedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     public $task;
-    
     /**
-     * Create a new job instance.
+     * Create a new job instance.z
      *
      * @return void
      */
