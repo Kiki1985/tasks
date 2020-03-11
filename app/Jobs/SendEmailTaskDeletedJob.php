@@ -13,9 +13,8 @@ class SendEmailTaskDeletedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
     
-
     /**
-     * Create a new job instance.
+     * Create a new job instance.z
      *
      * @return void
      */
@@ -23,6 +22,7 @@ class SendEmailTaskDeletedJob implements ShouldQueue
     {
        
     }
+
 
     /**
      * Execute the job.

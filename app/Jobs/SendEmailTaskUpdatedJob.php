@@ -12,17 +12,17 @@ use Illuminate\Queue\SerializesModels;
 class SendEmailTaskUpdatedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    
-
+    public $task;
     /**
-     * Create a new job instance.
+     * Create a new job instance.z
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($task)
     {
-       
+       $this->task = $task;
     }
+
 
     /**
      * Execute the job.
@@ -32,7 +32,7 @@ class SendEmailTaskUpdatedJob implements ShouldQueue
     public function handle()
     {
         \Mail::to('tasks@test.com')->send(
-            new TaskUpdated()
+            new TaskUpdated($this->task)
         );
     }
 }
